@@ -1,10 +1,14 @@
 package com.Ricepify.RicepifyProject.Models;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
-public class SiteUser {
+public class SiteUser  implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,6 +38,39 @@ public class SiteUser {
         LastName = lastName;
         Email = email;
         Password = password;
+    }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    public String getPassword() {
+        return Password;
+    }
+
+    @Override
+    public String getUsername() {
+        return getUserName();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public Long getId() {
@@ -72,9 +109,6 @@ public class SiteUser {
         Email = email;
     }
 
-    public String getPassword() {
-        return Password;
-    }
 
     public void setPassword(String password) {
         Password = password;
