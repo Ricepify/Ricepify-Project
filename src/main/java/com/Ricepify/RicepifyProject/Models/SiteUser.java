@@ -12,7 +12,7 @@ public class SiteUser  implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String UserName;
+    private String username;
     private String FirstName;
     private String LastName;
     private String Email;
@@ -32,12 +32,12 @@ public class SiteUser  implements UserDetails {
     public SiteUser() {
     }
 
-    public SiteUser(String userName, String firstName, String lastName, String email, String password) {
-        UserName = userName;
-        FirstName = firstName;
-        LastName = lastName;
-        Email = email;
-        Password = password;
+    public SiteUser(String username, String firstName, String lastName, String email, String password) {
+        this.username = username;
+        this.FirstName = firstName;
+        this.LastName = lastName;
+        this.Email = email;
+        this.Password = password;
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -46,11 +46,6 @@ public class SiteUser  implements UserDetails {
 
     public String getPassword() {
         return Password;
-    }
-
-    @Override
-    public String getUsername() {
-        return getUserName();
     }
 
     @Override
@@ -77,12 +72,14 @@ public class SiteUser  implements UserDetails {
         return id;
     }
 
-    public String getUserName() {
-        return UserName;
+
+    @Override
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        UserName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFirstName() {
