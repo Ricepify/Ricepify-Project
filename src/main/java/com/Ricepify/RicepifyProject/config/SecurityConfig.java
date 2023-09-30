@@ -1,5 +1,6 @@
-package com.Ricepify.RicepifyProject.config;
+package com.Ricepify.RicepifyProject.Config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,7 +14,8 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
 
-    private final UserDetailsServiceImpl userDetailsService;
+    @Autowired
+    private  UserDetailsServiceImpl userDetailsService;
 
     public SecurityConfig(UserDetailsServiceImpl userDetailsService) {
         this.userDetailsService = userDetailsService;

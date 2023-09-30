@@ -1,4 +1,4 @@
-package com.Ricepify.RicepifyProject.config;
+package com.Ricepify.RicepifyProject.Config;
 
 import com.Ricepify.RicepifyProject.Models.SiteUser;
 import com.Ricepify.RicepifyProject.Repositories.SiteUserRepository;
@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-
-
     private final SiteUserRepository siteUserRepository;
 
     public UserDetailsServiceImpl(SiteUserRepository siteUserRepository) {
