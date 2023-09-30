@@ -3,7 +3,6 @@ package com.Ricepify.RicepifyProject.Controllers;
 import com.Ricepify.RicepifyProject.Models.SiteUser;
 import com.Ricepify.RicepifyProject.Repositories.SiteUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,7 +13,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 
 @Controller
 public class SiteUserController {
@@ -30,7 +28,7 @@ public class SiteUserController {
     @Autowired
     private UserDetailsService userDetailsService;
     
-    @GetMapping("/signup")
+    @GetMapping("/signup-page")
     public String getSignupPage() {
         return "signup.html";
     }
@@ -38,9 +36,9 @@ public class SiteUserController {
     @PostMapping("/signup")
     public RedirectView createUser(String userName, String firstName, String lastName, String email, String password) {
         SiteUser siteUser = new SiteUser();
-        siteUser.setUserName(userName);
+        siteUser.setUsername(userName);
 
-        String encPass=passwordEncoder.encode(password);
+        String encPass = passwordEncoder.encode(password);
         siteUser.setPassword(encPass);
         siteUser.setFirstName(firstName);
         siteUser.setLastName(lastName);
@@ -50,6 +48,7 @@ public class SiteUserController {
         authWithServRequest(userName, password);
         return new RedirectView("/");
     }
+
     public void authWithServRequest(String username, String password) {
         try {
             request.login(username, password);

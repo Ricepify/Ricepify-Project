@@ -10,7 +10,6 @@ public class RicepifyProjectApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(RicepifyProjectApplication.class, args);
-		System.out.println("test");
 	}
 
 }

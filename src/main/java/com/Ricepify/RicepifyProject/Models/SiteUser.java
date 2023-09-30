@@ -12,11 +12,11 @@ public class SiteUser  implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String UserName;
-    private String FirstName;
-    private String LastName;
-    private String Email;
-    private String Password;
+    private String username;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
     @OneToMany(mappedBy = "siteUser", cascade = CascadeType.ALL)
     private List<Recipe> recipe;
     public List<Recipe>getRecipe()
@@ -26,31 +26,23 @@ public class SiteUser  implements UserDetails {
 
     @OneToMany(mappedBy = "siteUser", cascade = CascadeType.ALL)
     private List<RecipeInteraction> recipeInteractions;
+
     public List<RecipeInteraction> getRecipeInteractions() {
         return recipeInteractions;
     }
-    public SiteUser() {
-    }
 
-    public SiteUser(String userName, String firstName, String lastName, String email, String password) {
-        UserName = userName;
-        FirstName = firstName;
-        LastName = lastName;
-        Email = email;
-        Password = password;
-    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return getUserName();
+        return getUsername();
     }
 
     @Override
@@ -77,40 +69,37 @@ public class SiteUser  implements UserDetails {
         return id;
     }
 
-    public String getUserName() {
-        return UserName;
-    }
 
-    public void setUserName(String userName) {
-        UserName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFirstName() {
-        return FirstName;
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
-        FirstName = firstName;
+        this.firstName = firstName;
     }
 
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        LastName = lastName;
+        this.lastName = lastName;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
 
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 }
