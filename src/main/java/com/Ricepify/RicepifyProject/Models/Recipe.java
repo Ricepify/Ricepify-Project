@@ -31,6 +31,10 @@ public class Recipe {
         this.recipeInteractions = recipeInteractions;
     }
 
+    public Recipe() {
+
+    }
+
     public Long getRecipeId() {
         return RecipeId;
     }
