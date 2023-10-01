@@ -1,4 +1,4 @@
-package com.Ricepify.RicepifyProject.Models;
+package com.Ricepify.Models;
 
 import javax.persistence.*;
 import java.util.List;
