@@ -1,6 +1,6 @@
-package com.Ricepify.RicepifyProject.Repositories;
+package com.Ricepify.Repositories;
 
-import com.Ricepify.RicepifyProject.Models.RecipeInteraction;
+import com.Ricepify.Models.RecipeInteraction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
