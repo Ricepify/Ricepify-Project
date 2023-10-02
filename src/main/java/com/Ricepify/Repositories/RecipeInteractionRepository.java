@@ -9,5 +9,4 @@ import java.util.List;
 @Repository
 public interface RecipeInteractionRepository extends JpaRepository<RecipeInteraction,Long> {
 
-    List<RecipeInteraction> findCommentById(Long id);
 }

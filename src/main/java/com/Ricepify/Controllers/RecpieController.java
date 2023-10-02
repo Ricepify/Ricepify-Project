@@ -65,12 +65,12 @@ public class RecpieController {
 
     @GetMapping("/viewDetails/{id}")
     public String viewRecipeDetails(Principal p, Model model, @PathVariable Long id) {
-        if (p != null) {
-            Optional<Recipe> recipe = recipeRepository.findById(id);
-            List<RecipeInteraction> usersComments = recipeInteractionRepository.findCommentById(id);
-            model.addAttribute("recipe", recipe.get());
-            model.addAttribute("usersComments", usersComments);
-        }
+//        if (p != null) {
+//            Optional<Recipe> recipe = recipeRepository.findById(id);
+//            List<RecipeInteraction> usersComments = recipeInteractionRepository.findCommentById(id);
+//            model.addAttribute("recipe", recipe.get());
+//            model.addAttribute("usersComments", usersComments);
+//        }
         return "recipe-details";
     }
 }
