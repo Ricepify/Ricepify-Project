@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>User Profile</title>
+</head>
+<body>
+<header>
+  <h1>User Profile</h1>
+</header>
+  <section id="user-info">
+    <h2>User Information</h2>
+    <ul>
+      <li><strong>Username:</strong> <span th:text="${user.username}"></span></li>
+      <li><strong>First Name:</strong> <span th:text="${user.firstName}"></span></li>
+      <li><strong>Last Name:</strong> <span th:text="${user.lastName}"></span></li>
+      <li><strong>E-mail:</strong> <span th:text="${user.email}"></span></li>
+    </ul>
+  </section>
+<h2>Edit User Information</h2>
+<form th:action="@{'/myprofile'}" method="post">
+  <input type="hidden" name="_method" value="put">
+  <input id="username" type="hidden" name="username" th:value="${user.username}">
+  <label for="firstName">First Name:</label>
+  <input id="firstName" type="text" name="firstName" th:value="${user.firstName}">
+  <label for="lastName">Last Name:</label>
+  <input id="lastName" type="text" name="lastName" th:value="${user.lastName}">
+  <label for="email">E-mail:</label>
+  <input id="email" type="text" name="email" th:value="${user.email}">
+  <input type="submit" value="Save Changes">
+</form>
+
+</body>
+</html>

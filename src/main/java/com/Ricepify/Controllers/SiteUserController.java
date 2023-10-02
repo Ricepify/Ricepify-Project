@@ -3,6 +3,7 @@ package com.Ricepify.Controllers;
 import com.Ricepify.Models.SiteUser;
 import com.Ricepify.Repositories.SiteUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class SiteUserController {
@@ -28,6 +30,19 @@ public class SiteUserController {
     public String getLoginPage() {
         return "login";
     }
+    @PostMapping("/login")
+    public RedirectView loggedInUser(HttpServletRequest request, String username, String password){
+        SiteUser siteUser = siteUserRepository.findByUsername(username);
+
+        if((siteUser == null)
+                || !(BCrypt.checkpw(password, siteUser.getPassword())))
+        {
+            return new RedirectView("/login");
+        }
+        HttpSession httpSession= request.getSession();
+        httpSession.setAttribute("username", username);
+        return new RedirectView("/securedHome");
+    }
 
     @GetMapping("/signup")
     public String getSignupPage() {
@@ -44,7 +59,6 @@ public class SiteUserController {
         siteUser.setFirstName(firstName);
         siteUser.setLastName(lastName);
         siteUser.setEmail(email);
-
         siteUserRepository.save(siteUser);
         authWithServRequest(username, password);
         return new RedirectView("/login");
