@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+  <!-- Custom CSS for larger cards -->
+  <style>
+    .card {
+      height: 450px; /* Adjust the height as needed */
+    }
+
+    .card-img-top {
+      height: 200px; /* Adjust the image height as needed */
+      object-fit: cover; /* Ensure the image covers the entire space */
+    }
+
+    /* Smaller card footer */
+    .card-footer {
+      padding: 5px; /* Adjust the padding as needed */
+    }
+  </style>
+
+  <title>Meal Directory</title>
+</head>
+
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="#">Recipe</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <!-- Add navigation links here if needed -->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <h3 class="mt-4">Ricepify Home</h3>
+  <hr>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
+    <div th:each="tempMeal, mealIndex : ${meals}" class="col mb-4">
+      <div class="card">
+        <img th:src="${tempMeal.image}" class="card-img-top" alt="Meal Image">
+        <div class="card-body">
+          <h5 class="card-title" th:text="${tempMeal.mealName}"></h5>
+          <p class="card-text">
+            <strong>Category:</strong> <span th:text="${tempMeal.category}"></span><br>
+            <strong>Area:</strong> <span th:text="${tempMeal.area}"></span><br>
+          </p>
+        </div>
+        <div class="card-footer">
+          <a th:href="${tempMeal.video}" class="btn btn-primary btn-block mb-2">Watch Video</a>
+
+          <a th:href="${'/mealDetail?id=' + tempMeal.id}" class="btn btn-primary btn-block mb-2">
+
+
+            Details
+          </a>
+
+          <!-- Add to Favorites button  -->
+          <form action="/addToFavorites" method="POST">
+            <input type="hidden" name="mealId" th:value="${tempMeal.id}">
+            <form th:action="@{/addToFavorites}" method="post">
+              <input type="hidden" name="mealId" th:value="${tempMeal.id}">
+              <button type="submit" class="btn btn-success btn-block">Add to Favorites</button>
+            </form>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS  -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-o7HJ7FLU5Lh5n5Pc6u6uIwnzxFrjh4x4h" crossorigin="anonymous"></script>
+
+</body>
+</html>
