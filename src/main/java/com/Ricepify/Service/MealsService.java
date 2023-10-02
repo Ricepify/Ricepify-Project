@@ -2,12 +2,18 @@ package com.Ricepify.Service;
 
 
 import com.Ricepify.Models.Recipe;
+import com.Ricepify.bo.MealsBO;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import com.Ricepify.Models.RandomMealEntity;
+import com.Ricepify.bo.MealBO;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.springframework.web.client.RestTemplate;
+
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -17,7 +23,9 @@ import java.util.List;
 @Service
 public class MealsService {
     private static final String API_URL = "https://www.themealdb.com/api/json/v1/1/random.php";
-    public RandomMealEntity getRandomMealInfo() {
+
+    @Deprecated
+    public MealBO getOldRandomMealInfo() {
 
         try {
             // Create a URL object with the API endpoint
@@ -47,17 +55,16 @@ public class MealsService {
                 JsonObject mealObject = jsonData.getAsJsonArray("meals").get(0).getAsJsonObject();
 
                 // Extract and map the fields to a Java object
-                RandomMealEntity randomMealEntity = new RandomMealEntity();
-                randomMealEntity.setMealName(mealObject.get("strMeal").getAsString());
-                randomMealEntity.setCategory(mealObject.get("strCategory").getAsString());
-                randomMealEntity.setVideo(mealObject.get("strYoutube").getAsString());
-                randomMealEntity.setInstructions(mealObject.get("strInstructions").getAsString());
-                randomMealEntity.setImage(mealObject.get("strMealThumb").getAsString());
-                randomMealEntity.setArea(mealObject.get("strArea").getAsString());
-                randomMealEntity.setId(mealObject.get("idMeal").getAsString());
+                MealBO mealBO = new MealBO();
+                mealBO.setMealName(mealObject.get("strMeal").getAsString());
+                mealBO.setCategory(mealObject.get("strCategory").getAsString());
+                mealBO.setVideo(mealObject.get("strYoutube").getAsString());
+                mealBO.setInstructions(mealObject.get("strInstructions").getAsString());
+                mealBO.setImage(mealObject.get("strMealThumb").getAsString());
+                mealBO.setArea(mealObject.get("strArea").getAsString());
+                mealBO.setId(mealObject.get("idMeal").getAsString());
 
-
-                return randomMealEntity;
+                return mealBO;
 
             } else {
                 System.err.println("HTTP Request Failed with error code: " + responseCode);
@@ -72,20 +79,20 @@ public class MealsService {
 
         return null;
     }
-    public List<RandomMealEntity> getRandomMeals(int numberOfMeals) {
-        List<RandomMealEntity> mealsList = new ArrayList<>();
+
+    public List<MealBO> getRandomMeals(int numberOfMeals) throws IOException {
+        List<MealBO> mealsList = new ArrayList<>();
 
         for (int i = 0; i < numberOfMeals; i++) {
-            RandomMealEntity randomMealEntity = getRandomMealInfo();
+            MealBO mealBO = getRandomMealInfo();
 
-            mealsList.add(randomMealEntity);
-
+            mealsList.add(mealBO);
         }
 
         return mealsList;
     }
 
-    public Recipe convertForDataBaseFromAPI(RandomMealEntity randomMeal){
+    public Recipe convertForDataBaseFromAPI(MealBO randomMeal){
         Recipe recipe=new Recipe();
 
         recipe.setRecipeTitle(randomMeal.getMealName());
@@ -98,4 +105,16 @@ public class MealsService {
         return recipe;
     }
 
+    public MealBO getRandomMealInfo() throws IOException {
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<MealsBO> response = restTemplate.getForEntity(API_URL, MealsBO.class);
+        
+        if (!response.getStatusCode().equals(HttpStatus.OK) ||
+            !response.hasBody()) {
+            throw new IOException("There is an issue while call the external API");
+        }
+
+        return response.getBody().getMealBOList().get(0);
+    }
 }
