@@ -109,7 +109,7 @@ public class MealsService {
 
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<MealsBO> response = restTemplate.getForEntity(API_URL, MealsBO.class);
-        
+
         if (!response.getStatusCode().equals(HttpStatus.OK) ||
             !response.hasBody()) {
             throw new IOException("There is an issue while call the external API");
