@@ -57,34 +57,41 @@ public class MealsController {
 
         return "mealDetail";
     }
-
+// TODO MOHAMMAD MAKE IT WORK
     @PostMapping("/addToFavorites")
-
-    public String addToFavorites(@RequestParam("mealId") String id , Principal p) {
-        if (p != null){
+    public String addToFavorites(@RequestParam("id") String id, Principal p) {
+        if (p != null) {
             String username = p.getName();
             SiteUser siteUser = siteUserRepository.findByUsername(username);
-            for (RandomMealEntity randomMeal : randomMealsList) {
-                if (randomMeal.getId().equals(id)) {
+            System.out.println("123asdf : asdf");
+            for (int i = 0 ; i<8;i++){
+                System.out.println("567sdf : asdf");
+                if (randomMealsList.get(i).getId().equals(id)) {
 
+                    System.out.println("asdf : asdf");
                     Recipe recipe = new Recipe();
-                    recipe.setRecipeTitle(randomMeal.getMealName());
-                    recipe.setRecipeImage(randomMeal.getImage());
-                    recipe.setRecipeDescription(randomMeal.getInstructions());
-                    recipe.setRecipeCategory(randomMeal.getCategory());
-                    recipe.setRecipeArea(randomMeal.getArea());
+                    recipe.setRecipeTitle(randomMealsList.get(i).getMealName());
+                    recipe.setRecipeImage(randomMealsList.get(i).getImage());
+                    recipe.setRecipeDescription(randomMealsList.get(i).getInstructions());
+                    recipe.setRecipeCategory(randomMealsList.get(i).getCategory());
+                    recipe.setRecipeArea(randomMealsList.get(i).getArea());
                     recipe.setRecipeMode("FromAPI");
                     recipe.setSiteUser(siteUser);
+                    //ADD if it is existed before and some logic
                     recipeRepository.save(recipe);
-
                     break;
                 }
+
             }
-
-
         }
 
-        return  "redirect:/";
-
+        return "redirect:/";
     }
+//    @GetMapping("/1")
+//    public String getRandomMeal(Model model) {
+//        // Initialize the class-level field with the random meals
+////        randomMealsList = mealsService.getRandomMeals(8);
+//        model.addAttribute("meals", randomMealsList);
+//        return "home";
+//    }
 }

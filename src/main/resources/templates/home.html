@@ -72,11 +72,9 @@
 
           <!-- Add to Favorites button  -->
           <form action="/addToFavorites" method="POST">
-            <input type="hidden" name="mealId" th:value="${tempMeal.id}">
-            <form th:action="@{/addToFavorites}" method="post">
-              <input type="hidden" name="mealId" th:value="${tempMeal.id}">
-              <button type="submit" class="btn btn-success btn-block">Add to Favorites</button>
-            </form>
+            <input type="hidden" name="id" th:value="${tempMeal.id}">
+            <button type="submit" class="btn btn-success btn-block">Add to Favorites</button>
+          </form>
           </form>
         </div>
       </div>

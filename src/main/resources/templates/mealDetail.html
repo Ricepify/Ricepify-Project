@@ -8,16 +8,16 @@
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
-  <!-- Custom CSS for larger card -->
+
   <style>
     .meal-card {
-      width: 80%; /* Adjust the width as needed */
-      margin: 0 auto; /* Center the card horizontally */
+      width: 80%;
+      margin: 0 auto;
     }
 
     .meal-card img {
       max-width: 100%;
-      height: auto; /* Ensure the image scales proportionally */
+      height: auto;
     }
   </style>
 
@@ -25,7 +25,7 @@
 </head>
 <body>
 
-<!-- Navigation Bar (You can reuse the same navigation bar code from your previous page) -->
+<!-- Navigation Bar  -->
 
 <div class="container">
   <!-- Display detailed information about the meal here -->
@@ -37,13 +37,13 @@
       <p class="card-text">
         <strong>Category:</strong> <span th:text="${meal.category}"></span><br>
         <strong>Area:</strong> <span th:text="${meal.area}"></span><br>
-        <!-- Add any other meal details you want to display -->
+
       </p>
       <h4 class="card-title">Instructions</h4>
       <p class="card-text" th:text="${meal.instructions}"></p>
     </div>
     <div class="card-footer">
-      <!-- Button to go back to the previous page -->
+      <!-- Button to go back to the previous page WITHOUT REFRESH -->
       <a href="#" onclick="history.go(-1);" class="btn btn-secondary">Back</a>
     </div>
   </div>

@@ -8,8 +8,7 @@ public class RandomMealEntity {
     private String image;
     private String category;
     private String area;
-
-    String id;
+    private String id;
     public RandomMealEntity() {
     }
 
