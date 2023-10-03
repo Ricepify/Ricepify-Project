@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe Details</title>
+</head>
+<body>
+<header>
+</header>
+<div>
+  <div th:object="${recipe}">
+    <div>
+      <img th:src="*{recipeImage}" alt="Recipe Cover"/>
+      <div >
+        <h1><span th:text="*{recipeTitle}"/></h1>
+        <p><span th:text="*{recipeDescription}"/></p>
+        <p><span th:text="*{recipeCategory}"/></p>
+        <p><span th:text="*{recipeArea}"/></p>
+      </div>
+    </div>
+
+    <form action="#" th:action="@{/saveComment}"  method="post">
+      <fieldset>
+        <legend>Add Your Comment</legend>
+        <input type="text" name="comment" required />
+        </br>
+        <input type="submit" value="add post">
+      </fieldset>
+    </form>
+
+    <div>
+      <ol th:each="comment:${usersComments}">
+        <li><span th:text="${comment}"></span></li>
+      </ol>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

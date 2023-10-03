@@ -1,51 +1,52 @@
 package com.Ricepify.Controllers;
 
-
-import com.Ricepify.Models.RandomMealEntity;
+import com.Ricepify.bo.MealBO;
 import com.Ricepify.Models.Recipe;
 import com.Ricepify.Models.SiteUser;
 import com.Ricepify.Repositories.RecipeRepository;
 import com.Ricepify.Repositories.SiteUserRepository;
 import com.Ricepify.Service.MealsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 @Controller
 public class MealsController {
 
     private final MealsService mealsService;
-    private List<RandomMealEntity> randomMealsList;
-    private RecipeRepository recipeRepository;
-    private SiteUserRepository siteUserRepository;
-    @Autowired
-    public MealsController(MealsService mealsService, RecipeRepository recipeRepository , SiteUserRepository siteUserRepository) {
+    private List<MealBO> randomMealsList;
+    private final RecipeRepository recipeRepository;
+    private final SiteUserRepository siteUserRepository;
+
+    public MealsController(MealsService mealsService, RecipeRepository recipeRepository ,
+                           SiteUserRepository siteUserRepository) {
         this.mealsService = mealsService;
         this.recipeRepository = recipeRepository;
         this.siteUserRepository=siteUserRepository;
     }
 
-
-
-
     @GetMapping("/")
     public String getRandomMeals(Model model) {
         // Initialize the class-level field with the random meals
-        randomMealsList = mealsService.getRandomMeals(8);
+        try {
+            randomMealsList = mealsService.getRandomMeals(8);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         model.addAttribute("meals", randomMealsList);
         return "home";
     }
 
     @GetMapping("/mealDetail")
     public String mealDetail(@RequestParam("id") String id, Model model) {
-        RandomMealEntity meal = null;
+        MealBO meal = null;
 
-        for (RandomMealEntity randomMeal : randomMealsList) {
+        for (MealBO randomMeal : randomMealsList) {
             if (randomMeal.getId().equals(id)) {
                 meal = randomMeal;
                 System.out.println(meal.getMealName());
@@ -68,6 +69,7 @@ public class MealsController {
                 System.out.println("567sdf : asdf");
                 if (randomMealsList.get(i).getId().equals(id)) {
 
+
                     System.out.println("asdf : asdf");
                     Recipe recipe = new Recipe();
                     recipe.setRecipeTitle(randomMealsList.get(i).getMealName());
@@ -85,7 +87,9 @@ public class MealsController {
             }
         }
 
+
         return "redirect:/";
+
     }
 //    @GetMapping("/1")
 //    public String getRandomMeal(Model model) {
