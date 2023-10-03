@@ -18,6 +18,11 @@ public class UserProfileController {
     @Autowired
     SiteUserRepository siteUserRepository;
 
+    @GetMapping("/aboutus")
+    public String getaboutus(){
+        return "/aboutus/Aboutus.html";
+    }
+
     @GetMapping("/myprofile")
     public String getUserProfile(Model model, Principal p) {
         if (p != null) {
