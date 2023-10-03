@@ -30,6 +30,7 @@ public class SiteUserController {
     public String getLoginPage() {
         return "login";
     }
+
     @PostMapping("/login")
     public RedirectView loggedInUser(HttpServletRequest request, String username, String password){
         SiteUser siteUser = siteUserRepository.findByUsername(username);
