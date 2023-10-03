@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface RecipeInteractionRepository extends JpaRepository<RecipeInteraction,Long> {
     //  ZAID  FIXME NEED SOME REFACTOR
-    List<RecipeInteraction> findByRecipeId(Long recipeId);
+//    List<RecipeInteraction> findByRecipeId(Long recipeId);
 
 }

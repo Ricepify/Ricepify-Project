@@ -66,16 +66,16 @@ public class RecpieController {
     }
 
 //    ZAID TODO TESTING
-    @GetMapping("/viewDetails/{id}")
-    public String viewRecipeDetails(Principal p, Model model, @PathVariable Long id) {
-        if (p != null) {
-            Optional<Recipe> recipe = recipeRepository.findById(id);
-            List<RecipeInteraction> interactions = recipeInteractionRepository.findByRecipeId(id);
-            List<String> usersComments = interactions.stream().map(RecipeInteraction::getComment).collect(Collectors.toList());
-            model.addAttribute("recipe", recipe.get());
-            model.addAttribute("usersComments", usersComments);
-        }
-        return "recipe-details";
-    }
+//    @GetMapping("/viewDetails/{id}")
+//    public String viewRecipeDetails(Principal p, Model model, @PathVariable Long id) {
+//        if (p != null) {
+//            Optional<Recipe> recipe = recipeRepository.findById(id);
+//            List<RecipeInteraction> interactions = recipeInteractionRepository.findByRecipeId(id);
+//            List<String> usersComments = interactions.stream().map(RecipeInteraction::getComment).collect(Collectors.toList());
+//            model.addAttribute("recipe", recipe.get());
+//            model.addAttribute("usersComments", usersComments);
+//        }
+//        return "recipe-details";
+//    }
 }
 

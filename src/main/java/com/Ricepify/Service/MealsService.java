@@ -55,19 +55,6 @@ public class MealsService {
         return mealsList;
     }
 
-    public Recipe convertForDataBaseFromAPI(MealBO randomMeal){
-        Recipe recipe=new Recipe();
-
-        recipe.setRecipeTitle(randomMeal.getMealName());
-        recipe.setRecipeImage(randomMeal.getImage());
-        recipe.setRecipeDescription(randomMeal.getInstructions());
-        recipe.setRecipeCategory(randomMeal.getCategory());
-        recipe.setRecipeArea(randomMeal.getArea());
-        recipe.setRecipeMode("FromAPI");
-
-        return recipe;
-    }
-
 
 
 
