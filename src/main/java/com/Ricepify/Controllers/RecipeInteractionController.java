@@ -25,19 +25,19 @@ public class RecipeInteractionController {
     }
 
 
-    @PostMapping("/savePost")
+//  ZAID  FIXME NEED SOME REFACTOR
+    @PostMapping("/saveComment")
     public RedirectView savePost(Principal p , String comment){
         if (p != null) {
             String username = p.getName();
             SiteUser siteUser = siteUserRepository.findByUsername(username);
 
-//            Post posts = new Post();
-//
-//            posts.setBody(body);
-//            posts.setCreatedAt(createdAt);
-//            posts.setApplicationUser(applicationUser);
-//
-//            postRepository.save(posts);
+            RecipeInteraction recipeInteraction = new RecipeInteraction();
+
+            recipeInteraction.setComment(comment);
+            recipeInteraction.setSiteUser(siteUser);
+
+            recipeInteractionRepository.save(recipeInteraction);
         }
         return new RedirectView("/my-profile");
     }
