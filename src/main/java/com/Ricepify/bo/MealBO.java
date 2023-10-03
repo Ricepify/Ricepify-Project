@@ -25,6 +25,45 @@ public class MealBO {
 
     @JsonProperty("strArea")
     private String area;
+<<<<<<< HEAD:src/main/java/com/Ricepify/Models/RandomMealEntity.java
+    private String id;
+    public RandomMealEntity() {
+    }
+
+    //Setters
+
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setMealName(String mealName) {
+        this.mealName = mealName;
+    }
+
+    public void setVideo(String video) {
+        this.video = video;
+    }
+
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+    //Getters
+
+=======
+>>>>>>> main:src/main/java/com/Ricepify/bo/MealBO.java
 
     public String getId() {
         return id;
