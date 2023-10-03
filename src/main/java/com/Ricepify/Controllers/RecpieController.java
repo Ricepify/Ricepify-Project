@@ -9,6 +9,7 @@ import com.Ricepify.Repositories.SiteUserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class RecpieController {
@@ -63,14 +65,16 @@ public class RecpieController {
         return null;
     }
 
+//    ZAID TODO TESTING
     @GetMapping("/viewDetails/{id}")
     public String viewRecipeDetails(Principal p, Model model, @PathVariable Long id) {
-//        if (p != null) {
-//            Optional<Recipe> recipe = recipeRepository.findById(id);
-//            List<RecipeInteraction> usersComments = recipeInteractionRepository.findCommentById(id);
-//            model.addAttribute("recipe", recipe.get());
-//            model.addAttribute("usersComments", usersComments);
-//        }
+        if (p != null) {
+            Optional<Recipe> recipe = recipeRepository.findById(id);
+            List<RecipeInteraction> interactions = recipeInteractionRepository.findByRecipeId(id);
+            List<String> usersComments = interactions.stream().map(RecipeInteraction::getComment).collect(Collectors.toList());
+            model.addAttribute("recipe", recipe.get());
+            model.addAttribute("usersComments", usersComments);
+        }
         return "recipe-details";
     }
 }
