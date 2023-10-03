@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <style>
+
+    </style>
+</head>
+<body>
+<header>
+    <h1>User Profile</h1>
+</header>
+<main>
+    <section id="user-info">
+        <ul>
+            <li>
+                <strong>Username:</strong> <span th:text="${applicationUser.username}"></span>
+            </li>
+            <li>
+                <strong>First Name:</strong> <span th:text="${applicationUser.firstName}"></span>
+            </li>
+            <li>
+                <strong>Last Name:</strong> <span th:text="${applicationUser.lastName}"></span>
+            </li>
+            <li>
+                <strong>Email:</strong> <span th:text="${applicationUser.email}"></span>
+            </li>
+        </ul>
+
+        <a th:if="!${isFollowed}" th:href="@{'/follow/' + ${applicationUser.id}}" class="button">Follow</a>
+        <a th:if="${isFollowed}" class="button">Followed</a>
+    </section>
+</main>
+</body>
+</html>

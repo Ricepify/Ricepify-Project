@@ -1,0 +1,62 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>User Profile</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<header>-->
+<!--  <h1>Find Users</h1>-->
+<!--</header>-->
+<!--&lt;!&ndash;<nav>&ndash;&gt;-->
+<!--&lt;!&ndash;  <div th:replace="fragments/nav-header :: nav-bar"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;</nav>&ndash;&gt;-->
+<!--<ul>-->
+<!--  <li th:each="u : ${users}">-->
+<!--    <a th:href="@{'/userinfo/' + ${u.id}}">-->
+<!--&lt;!&ndash;      <img th:src="${u.image}" alt="User Image">&ndash;&gt;-->
+<!--      <span th:text="${u.username}"></span>-->
+<!--    </a>-->
+<!--  </li>-->
+<!--  <br/>-->
+<!--</ul>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Find Users</title>
+</head>
+<body>
+
+<h1>Find Users</h1>
+
+<!-- Add a loop to display the list of users -->
+<table>
+    <thead>
+    <tr>
+        <th>Username</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.firstName}"></td>
+        <td th:text="${user.lastName}"></td>
+        <td th:text="${user.email}"></td>
+        <td>
+            <a th:href="@{/userinfo/{userId}(userId=${user.id})}">View Profile</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
+
