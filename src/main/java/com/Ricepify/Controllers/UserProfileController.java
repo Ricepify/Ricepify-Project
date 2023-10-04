@@ -1,6 +1,6 @@
 package com.Ricepify.Controllers;
 
-import com.Ricepify.Models.SiteUser;
+import com.Ricepify.Models.SiteUserEntity;
 import com.Ricepify.Repositories.SiteUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,26 +27,23 @@ public class UserProfileController {
     public String getUserProfile(Model model, Principal p) {
         if (p != null) {
             String username = p.getName();
-            SiteUser siteUser = siteUserRepository.findByUsername(username);
-            model.addAttribute("user", siteUser); // Add this line
+            SiteUserEntity siteUserEntity = siteUserRepository.findByUsername(username);
+            model.addAttribute("user", siteUserEntity); // Add this line
         }
         return "user-info";
     }
-
-
-
     @PutMapping("/myprofile")
     public RedirectView editUserInfo(Principal p, Model m, String username, String firstName, String lastName, String email, String password, RedirectAttributes redir) {
         System.out.println("Received username: " + username);
         if ((p != null) && (p.getName().equals(username))) {
-            SiteUser siteUser = siteUserRepository.findByUsername(username);
-            System.out.println("Found user: " + siteUser);
-            m.addAttribute("id", siteUser.getId());
-            siteUser.setUsername(username);
-            siteUser.setFirstName(firstName);
-            siteUser.setLastName(lastName);
-            siteUser.setEmail(email);
-            siteUserRepository.save(siteUser);
+            SiteUserEntity siteUserEntity = siteUserRepository.findByUsername(username);
+            System.out.println("Found user: " + siteUserEntity);
+            m.addAttribute("id", siteUserEntity.getId());
+            siteUserEntity.setUsername(username);
+            siteUserEntity.setFirstName(firstName);
+            siteUserEntity.setLastName(lastName);
+            siteUserEntity.setEmail(email);
+            siteUserRepository.save(siteUserEntity);
             System.out.println("User saved successfully");
         } else {
             redir.addFlashAttribute("errorMessage", "You are not authorized to modify another user's information.");

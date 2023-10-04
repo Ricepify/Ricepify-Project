@@ -1,13 +1,10 @@
 package com.Ricepify.Repositories;
 
-import com.Ricepify.Models.SiteUser;
+import com.Ricepify.Models.SiteUserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface SiteUserRepository extends JpaRepository<SiteUser,Long> {
-       SiteUser findByUsername(String username);
+public interface SiteUserRepository extends JpaRepository<SiteUserEntity,Long> {
+       SiteUserEntity findByUsername(String username);
 }

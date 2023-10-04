@@ -1,35 +1,25 @@
 package com.Ricepify.Controllers;
 
-import com.Ricepify.Models.Recipe;
-import com.Ricepify.Models.RecipeInteraction;
-import com.Ricepify.Models.SiteUser;
-import com.Ricepify.Repositories.RecipeInteractionRepository;
+import com.Ricepify.Models.RecipeEntity;
+import com.Ricepify.Models.SiteUserEntity;
 import com.Ricepify.Repositories.RecipeRepository;
 import com.Ricepify.Repositories.SiteUserRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Controller
 public class RecpieController {
     private final SiteUserRepository siteUserRepository;
     private final RecipeRepository recipeRepository;
 
-    private final RecipeInteractionRepository recipeInteractionRepository;
 
-    public RecpieController(SiteUserRepository siteUserRepository, RecipeRepository recipeRepository, RecipeInteractionRepository recipeInteractionRepository) {
+    public RecpieController(SiteUserRepository siteUserRepository, RecipeRepository recipeRepository) {
         this.siteUserRepository = siteUserRepository;
         this.recipeRepository = recipeRepository;
-        this.recipeInteractionRepository = recipeInteractionRepository;
     }
 
     @GetMapping("/addNew_recipe")
@@ -48,18 +38,18 @@ public class RecpieController {
 
         if (p != null) {
             String username = p.getName();
-            SiteUser siteUser = siteUserRepository.findByUsername(username);
+            SiteUserEntity siteUserEntity = siteUserRepository.findByUsername(username);
 
-            Recipe recipe = new Recipe();
-            recipe.setRecipeTitle(recipeTitle);
-            recipe.setRecipeImage(recipeImage);
-            recipe.setRecipeDescription(recipeDescription);
-            recipe.setRecipeCategory(recipeCategory);
-            recipe.setRecipeArea(recipeArea);
-            recipe.setRecipeMode(recipeMode);
-            recipe.setSiteUser(siteUser);
+            RecipeEntity recipeEntity = new RecipeEntity();
+            recipeEntity.setRecipeTitle(recipeTitle);
+            recipeEntity.setRecipeImage(recipeImage);
+            recipeEntity.setRecipeDescription(recipeDescription);
+            recipeEntity.setRecipeCategory(recipeCategory);
+            recipeEntity.setRecipeArea(recipeArea);
+            recipeEntity.setRecipeMode(recipeMode);
+            recipeEntity.setSiteUserEntity(siteUserEntity);
 
-            recipeRepository.save(recipe);
+            recipeRepository.save(recipeEntity);
 
         }
         return null;

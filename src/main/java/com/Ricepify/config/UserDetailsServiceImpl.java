@@ -1,6 +1,6 @@
 package com.Ricepify.config;
 
-import com.Ricepify.Models.SiteUser;
+import com.Ricepify.Models.SiteUserEntity;
 import com.Ricepify.Repositories.SiteUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +15,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        SiteUser userApp = siteUserRepository.findByUsername(username);
+        SiteUserEntity userApp = siteUserRepository.findByUsername(username);
 
         if (userApp == null) {
             System.out.println("User not found " + username);
