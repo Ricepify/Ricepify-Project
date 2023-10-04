@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>API Search</title>
+</head>
+<body>
+<h1>Search in API</h1>
+<form th:action="@{/search}" method="post">
+  <label for="searchOption">Select an Option:</label>
+  <select id="searchOption" name="searchOption">
+    <option value="Beef">Beef</option>
+    <option value="Chicken">Chicken</option>
+    <option value="Seafood">Seafood </option>
+    <option value="Dessert">Option 3</option>
+
+  </select>
+  <button type="submit">Search</button>
+
+</form>
+</body>
+</html>
