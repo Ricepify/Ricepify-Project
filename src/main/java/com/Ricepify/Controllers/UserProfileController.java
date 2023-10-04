@@ -1,22 +1,32 @@
 package com.Ricepify.Controllers;
 
+import com.Ricepify.Models.RecipeEntity;
 import com.Ricepify.Models.SiteUserEntity;
+import com.Ricepify.Repositories.RecipeRepository;
 import com.Ricepify.Repositories.SiteUserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.Ricepify.bo.MealBO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class UserProfileController {
 
-    @Autowired
-    SiteUserRepository siteUserRepository;
+
+   private final SiteUserRepository siteUserRepository;
+    private final RecipeRepository recipeRepository;
+
+    public UserProfileController(SiteUserRepository siteUserRepository, RecipeRepository recipeRepository) {
+        this.siteUserRepository = siteUserRepository;
+        this.recipeRepository = recipeRepository;
+    }
 
     @GetMapping("/aboutus")
     public String getaboutus(){
@@ -28,10 +38,28 @@ public class UserProfileController {
         if (p != null) {
             String username = p.getName();
             SiteUserEntity siteUserEntity = siteUserRepository.findByUsername(username);
+            List<RecipeEntity> recipeEntities = siteUserEntity.getRecipeEntities();
             model.addAttribute("user", siteUserEntity); // Add this line
+            model.addAttribute("recipies" , recipeEntities);
         }
         return "user-info";
     }
+//    @GetMapping("/mealDetail")
+//    public String mealDetail(@RequestParam("id") String id, Model model) {
+//        MealBO meal = null;
+//
+//        for (MealBO randomMeal : randomMealsList) {
+//            if (randomMeal.getId().equals(id)) {
+//                meal = randomMeal;
+//                System.out.println(meal.getMealName());
+//                break;
+//            }
+//        }
+//
+//        model.addAttribute("meal", meal);
+//
+//        return "mealDetail";
+//    }
     @PutMapping("/myprofile")
     public RedirectView editUserInfo(Principal p, Model m, String username, String firstName, String lastName, String email, String password, RedirectAttributes redir) {
         System.out.println("Received username: " + username);
