@@ -1,6 +1,6 @@
 package com.Ricepify.Controllers;
 
-import com.Ricepify.Models.SiteUser;
+import com.Ricepify.Models.SiteUserEntity;
 import com.Ricepify.Repositories.SiteUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -33,10 +33,10 @@ public class SiteUserController {
 
     @PostMapping("/login")
     public RedirectView loggedInUser(HttpServletRequest request, String username, String password){
-        SiteUser siteUser = siteUserRepository.findByUsername(username);
+        SiteUserEntity siteUserEntity = siteUserRepository.findByUsername(username);
 
-        if((siteUser == null)
-                || !(BCrypt.checkpw(password, siteUser.getPassword())))
+        if((siteUserEntity == null)
+                || !(BCrypt.checkpw(password, siteUserEntity.getPassword())))
         {
             return new RedirectView("/login");
         }
@@ -52,15 +52,15 @@ public class SiteUserController {
 
     @PostMapping("/signup")
     public RedirectView createUser(String username, String firstName, String lastName, String email, String password) {
-        SiteUser siteUser = new SiteUser();
-        siteUser.setUsername(username);
+        SiteUserEntity siteUserEntity = new SiteUserEntity();
+        siteUserEntity.setUsername(username);
 
         String encPass = passwordEncoder.encode(password);
-        siteUser.setPassword(encPass);
-        siteUser.setFirstName(firstName);
-        siteUser.setLastName(lastName);
-        siteUser.setEmail(email);
-        siteUserRepository.save(siteUser);
+        siteUserEntity.setPassword(encPass);
+        siteUserEntity.setFirstName(firstName);
+        siteUserEntity.setLastName(lastName);
+        siteUserEntity.setEmail(email);
+        siteUserRepository.save(siteUserEntity);
         authWithServRequest(username, password);
         return new RedirectView("/login");
     }
