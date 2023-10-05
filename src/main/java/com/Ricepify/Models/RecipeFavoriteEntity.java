@@ -3,7 +3,7 @@ package com.Ricepify.Models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "recipe_favorites")
+//@Table(name = "recipe_favorites")
 public class RecipeFavoriteEntity {
 
     @Id

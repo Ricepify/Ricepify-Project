@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <style>
 
@@ -70,8 +70,18 @@ input:valid {
 input:invalid {
     border-color: #dc3545;
 }
+.error-message {
+    display: none;
+    color: red;
+    font-size: 14px;
+}
+
+input:invalid + .error-message {
+    display: block;
+}
 
     </style>
+
 </head>
 <body>
 <form action="/signup" method="POST">
@@ -80,7 +90,7 @@ input:invalid {
     <input type="text" name="username" id="username" required><br>
 
     <label for="password">Password</label>
-    <input type="password" name="password" id="password" required><br>
+    <input type="password" name="password" id="password" required/>
 
     <label for="firstName">First Name</label>
     <input type="text" name="firstName" id="firstName" required><br>
@@ -93,5 +103,3 @@ input:invalid {
 
     <input type="submit" value="Sign Up">
 </form>
-</body>
-</html>

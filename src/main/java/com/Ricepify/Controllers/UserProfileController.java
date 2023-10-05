@@ -41,6 +41,9 @@ public class UserProfileController {
             List<RecipeEntity> recipeEntities = siteUserEntity.getRecipeEntities();
             model.addAttribute("user", siteUserEntity); // Add this line
             model.addAttribute("recipies" , recipeEntities);
+
+            model.addAttribute("user", siteUserEntity);
+
         }
         return "user-info";
     }
@@ -61,7 +64,7 @@ public class UserProfileController {
 //        return "mealDetail";
 //    }
     @PutMapping("/myprofile")
-    public RedirectView editUserInfo(Principal p, Model m, String username, String firstName, String lastName, String email, String password, RedirectAttributes redir) {
+    public RedirectView editUserInfo(Principal p, Model m, String username, String firstName, String lastName, String email, String password,String image,String bio, RedirectAttributes redir) {
         System.out.println("Received username: " + username);
         if ((p != null) && (p.getName().equals(username))) {
             SiteUserEntity siteUserEntity = siteUserRepository.findByUsername(username);
@@ -71,6 +74,9 @@ public class UserProfileController {
             siteUserEntity.setFirstName(firstName);
             siteUserEntity.setLastName(lastName);
             siteUserEntity.setEmail(email);
+            siteUserEntity.setPassword(password);
+            siteUserEntity.setImage(image);
+            siteUserEntity.setBio(bio);
             siteUserRepository.save(siteUserEntity);
             System.out.println("User saved successfully");
         } else {
