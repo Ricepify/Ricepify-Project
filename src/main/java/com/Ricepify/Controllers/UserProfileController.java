@@ -64,7 +64,7 @@ public class UserProfileController {
 //        return "mealDetail";
 //    }
     @PutMapping("/myprofile")
-    public RedirectView editUserInfo(Principal p, Model m, String username, String firstName, String lastName, String email, String password,String image,String bio, RedirectAttributes redir) {
+    public RedirectView editUserInfo(Principal p, Model m, String username, String firstName, String lastName, String email, String image,String bio, RedirectAttributes redir) {
         System.out.println("Received username: " + username);
         if ((p != null) && (p.getName().equals(username))) {
             SiteUserEntity siteUserEntity = siteUserRepository.findByUsername(username);
@@ -74,7 +74,6 @@ public class UserProfileController {
             siteUserEntity.setFirstName(firstName);
             siteUserEntity.setLastName(lastName);
             siteUserEntity.setEmail(email);
-            siteUserEntity.setPassword(password);
             siteUserEntity.setImage(image);
             siteUserEntity.setBio(bio);
             siteUserRepository.save(siteUserEntity);
