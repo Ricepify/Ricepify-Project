@@ -28,12 +28,12 @@ public class UserProfileController {
         if (p != null) {
             String username = p.getName();
             SiteUserEntity siteUserEntity = siteUserRepository.findByUsername(username);
-            model.addAttribute("user", siteUserEntity); // Add this line
+            model.addAttribute("user", siteUserEntity);
         }
         return "user-info";
     }
     @PutMapping("/myprofile")
-    public RedirectView editUserInfo(Principal p, Model m, String username, String firstName, String lastName, String email, String password, RedirectAttributes redir) {
+    public RedirectView editUserInfo(Principal p, Model m, String username, String firstName, String lastName, String email, String password,String image,String bio, RedirectAttributes redir) {
         System.out.println("Received username: " + username);
         if ((p != null) && (p.getName().equals(username))) {
             SiteUserEntity siteUserEntity = siteUserRepository.findByUsername(username);
@@ -43,6 +43,9 @@ public class UserProfileController {
             siteUserEntity.setFirstName(firstName);
             siteUserEntity.setLastName(lastName);
             siteUserEntity.setEmail(email);
+            siteUserEntity.setPassword(password);
+            siteUserEntity.setImage(image);
+            siteUserEntity.setBio(bio);
             siteUserRepository.save(siteUserEntity);
             System.out.println("User saved successfully");
         } else {
