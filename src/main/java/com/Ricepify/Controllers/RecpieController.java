@@ -34,7 +34,8 @@ public class RecpieController {
                                    String recipeDescription,
                                    String recipeCategory,
                                    String recipeArea,
-                                   String recipeMode) {
+                                   String recipeMode,
+                                   String recipeVideo) {
 
         if (p != null) {
             String username = p.getName();
@@ -47,12 +48,14 @@ public class RecpieController {
             recipeEntity.setRecipeCategory(recipeCategory);
             recipeEntity.setRecipeArea(recipeArea);
             recipeEntity.setRecipeMode(recipeMode);
+            recipeEntity.setRecipeVideo(recipeVideo);
             recipeEntity.setSiteUserEntity(siteUserEntity);
+
 
             recipeRepository.save(recipeEntity);
 
         }
-        return null;
+        return new RedirectView("/myprofile");
     }
 
 //    ZAID TODO TESTING
