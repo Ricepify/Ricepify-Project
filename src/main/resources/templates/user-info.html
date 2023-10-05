@@ -15,6 +15,8 @@
       <li><strong>First Name:</strong> <span th:text="${user.firstName}"></span></li>
       <li><strong>Last Name:</strong> <span th:text="${user.lastName}"></span></li>
       <li><strong>E-mail:</strong> <span th:text="${user.email}"></span></li>
+      <img th:src="${user.image}" alt="user Image"  width="100" height="100" /></li>
+      <li><strong>bio</strong> <span th:text="${user.bio}"></span></li>
     </ul>
   </section>
 <h2>Edit User Information</h2>
@@ -27,8 +29,11 @@
   <input id="lastName" type="text" name="lastName" th:value="${user.lastName}">
   <label for="email">E-mail:</label>
   <input id="email" type="text" name="email" th:value="${user.email}">
+  <label for="image">image:</label>
+  <input id="image" type="text" name="image" th:value="${user.image}">
+  <label for="bio">Bio :</label>
+  <input id="bio" type="text" name="bio" th:value="${user.bio}">
   <input type="submit" value="Save Changes">
 </form>
-
 </body>
 </html>
