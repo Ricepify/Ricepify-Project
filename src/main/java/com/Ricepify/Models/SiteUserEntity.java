@@ -5,11 +5,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "SiteUser")
+//@Table(name = "SiteUser")
 public class SiteUserEntity  implements UserDetails {
 
     @Id
@@ -20,6 +21,8 @@ public class SiteUserEntity  implements UserDetails {
     private String firstName;
     private String lastName;
     private String email;
+    private String image;
+    private String bio;
     @OneToMany(mappedBy="siteUserEntity")
     private List<RecipeEntity> recipeEntities;
 
@@ -28,6 +31,16 @@ public class SiteUserEntity  implements UserDetails {
 
     @OneToMany(mappedBy="siteUserEntity")
     private List<RecipeFavoriteEntity> recipeFavoriteEntity;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_following",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "following_id")
+    )
+    private Set<SiteUserEntity> following;
+    @ManyToMany(mappedBy = "following")
+    private Set<SiteUserEntity> followers = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -128,4 +141,35 @@ public class SiteUserEntity  implements UserDetails {
         return true;
     }
 
+    public Set<SiteUserEntity> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(Set<SiteUserEntity> following) {
+        this.following = following;
+    }
+
+    public Set<SiteUserEntity> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(Set<SiteUserEntity> followers) {
+        this.followers = followers;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
 }

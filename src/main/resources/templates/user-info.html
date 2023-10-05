@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>User Profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 <body>
 <header>
@@ -15,6 +16,8 @@
       <li><strong>First Name:</strong> <span th:text="${user.firstName}"></span></li>
       <li><strong>Last Name:</strong> <span th:text="${user.lastName}"></span></li>
       <li><strong>E-mail:</strong> <span th:text="${user.email}"></span></li>
+      <img th:src="${user.image}" alt="user Image"  width="100" height="100" /></li>
+      <li><strong>bio</strong> <span th:text="${user.bio}"></span></li>
     </ul>
   </section>
 <h2>Edit User Information</h2>
@@ -27,8 +30,47 @@
   <input id="lastName" type="text" name="lastName" th:value="${user.lastName}">
   <label for="email">E-mail:</label>
   <input id="email" type="text" name="email" th:value="${user.email}">
+  <label for="image">image:</label>
+  <input id="image" type="text" name="image" th:value="${user.image}">
+  <label for="bio">Bio :</label>
+  <input id="bio" type="text" name="bio" th:value="${user.bio}">
   <input type="submit" value="Save Changes">
 </form>
 
+<a th:href="@{/addNew_recipe}" class="btn btn-primary">add recipe</a>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
+  <div th:each="recipe, mealIndex : ${recipies}" class="col mb-4">
+    <div class="card">
+      <img th:src="${recipe.recipeImage}" class="card-img-top" alt="Meal Image">
+      <div class="card-body">
+        <h5 class="card-title" th:text="${recipe.recipeTitle}"></h5>
+        <p class="card-text">
+          <strong>Category:</strong> <span th:text="${recipe.recipeCategory}"></span><br>
+          <strong>Area:</strong> <span th:text="${recipe.recipeArea}"></span><br>
+        </p>
+      </div>
+      <div class="card-footer">
+        <a th:href="${recipe.recipeVideo}" class="btn btn-primary btn-block mb-2">Watch Video</a>
+
+        <a th:href="${'/mealDetail?id=' + recipe.recipeId}" class="btn btn-primary btn-block mb-2">
+
+
+          Details
+        </a>
+
+        <!-- Add to Favorites button  -->
+        <form action="/addToFavorites" method="POST">
+          <input type="hidden" name="id" th:value="${recipe.recipeId}">
+          <button type="submit" class="btn btn-success btn-block">Add to Favorites</button>
+        </form>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-o7HJ7FLU5Lh5n5Pc6u6uIwnzxFrjh4x4h" crossorigin="anonymous"></script>
 </body>
 </html>
