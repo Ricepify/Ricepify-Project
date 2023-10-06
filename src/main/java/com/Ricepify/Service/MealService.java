@@ -11,4 +11,5 @@ public interface MealService {
     List<MealBO> getAllCategory() throws IOException;
 
     List<MealBO> getAllAreas() throws IOException;
+    MealBO findMealById(String id ,List<MealBO> randomMealsList);
 }

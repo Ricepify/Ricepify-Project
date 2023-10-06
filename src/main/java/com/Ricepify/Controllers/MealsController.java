@@ -45,16 +45,8 @@ public class MealsController {
 
     @GetMapping("/mealDetail")
     public String mealDetail(@RequestParam("id") String id, Model model) {
-        MealBO meal = null;
 
-        for (MealBO randomMeal : randomMealsList) {
-            if (randomMeal.getId().equals(id)) {
-                meal = randomMeal;
-                System.out.println(meal.getMealName());
-                break;
-            }
-        }
-        model.addAttribute("meal", meal);
+        model.addAttribute("meal",mealService.findMealById(id,randomMealsList) );
 
         return "mealDetail";
     }
