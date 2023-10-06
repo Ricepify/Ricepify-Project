@@ -54,5 +54,17 @@ public class MealServiceImpl implements MealService {
 
         return mealsList;
     }
+    @Override
+    public  MealBO findMealById(String id ,List<MealBO> randomMealsList){
 
+        MealBO meal = randomMealsList.stream()
+                .filter(randomMeal -> randomMeal.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+
+        if (meal != null) {
+            System.out.println(meal.getMealName());
+        }
+        return meal;
+    }
 }
