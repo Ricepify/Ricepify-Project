@@ -54,7 +54,6 @@ public class MealsController {
                 break;
             }
         }
-
         model.addAttribute("meal", meal);
 
         return "mealDetail";

@@ -53,7 +53,7 @@
       <div class="card-footer">
         <a th:href="${recipe.recipeVideo}" class="btn btn-primary btn-block mb-2">Watch Video</a>
 
-        <a th:href="${'/mealDetail?id=' + recipe.recipeId}" class="btn btn-primary btn-block mb-2">
+        <a th:href="@{/recipeDetails/{userId}(userId=${recipe.recipeId})}" class="btn btn-primary btn-block mb-2">
 
 
           Details
