@@ -1,41 +1,78 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Recipe Details</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+
+  <style>
+    .meal-card {
+      width: 80%;
+      margin: 0 auto;
+    }
+
+    .meal-card img {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+
+    <title>Recipe Details</title>
 </head>
 <body>
-<header>
-</header>
-<div>
-  <div th:object="${recipeEntity}">
-    <div>
-      <img th:src="*{recipeImage}" alt="Recipe Cover"/>
-      <div >
-        <h1><span th:text="*{recipeTitle}"/></h1>
-        <p><span th:text="*{recipeDescription}"/></p>
-        <p><span th:text="*{recipeCategory}"/></p>
-        <p><span th:text="*{recipeArea}"/></p>
+
+<!-- Navigation Bar  -->
+
+<div class="container">
+  <!-- Display detailed information about the meal here -->
+  <div class="card meal-card">
+    <h3 class="card-header" th:text="${recipeEntity.recipeTitle}"></h3>
+    <img th:src="${recipeEntity.recipeImage}" class="card-img-top" alt="Meal Image">
+    <div class="card-body">
+      <h4 class="card-title">Details</h4>
+      <p class="card-text">
+        <strong>Category:</strong> <span th:text="${recipeEntity.recipeCategory}"></span><br>
+        <strong>Area:</strong> <span th:text="${recipeEntity.recipeArea}"></span><br>
+
+      </p>
+      <h4 class="card-title">Instructions</h4>
+      <p class="card-text" th:text="${recipeEntity.recipeDescription}"></p>
+      <div>
+        <form action="#" th:action="@{/saveComment}"  method="post">
+          <fieldset>
+            <legend>Add Your Note</legend>
+            <input type="hidden" th:field="*{recipeEntity.recipeId}">
+            <input type="text" name="comment" required />
+            </br>
+            <input type="submit" value="add post">
+          </fieldset>
+        </form>
+      </div>
+
+
+      <h4>Comments:</h4>
+      <div>
+        <ol th:each="comment:${usersComments}">
+          <span th:text="${comment.comment}"></span>
+        </ol>
       </div>
     </div>
-
-    <form action="#" th:action="@{/saveComment}"  method="post">
-      <fieldset>
-        <legend>Add Your Comment</legend>
-        <input type="text" name="comment" required />
-        </br>
-        <input type="submit" value="add post">
-      </fieldset>
-    </form>
-
-    <div>
-      <ol th:each="comment:${usersComments}">
-        <li><span th:text="${comment}"></span></li>
-      </ol>
+    <div class="card-footer">
+      <!-- Button to go back to the previous page WITHOUT REFRESH -->
+      <a href="#" onclick="history.go(-1);" class="btn btn-secondary">Back</a>
     </div>
   </div>
-
 </div>
+
+
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-o7HJ7FLU5Lh5n5Pc6u6uIwnzxFrjh4x4h" crossorigin="anonymous"></script>
+
 </body>
 </html>
