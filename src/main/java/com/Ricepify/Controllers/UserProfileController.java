@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.bind.annotation.PostMapping;
+
 
 import java.security.Principal;
 import java.util.List;
@@ -36,7 +38,13 @@ public class UserProfileController {
         return "/aboutus/Aboutus.html";
     }
 
+
+
+
+
+
     @GetMapping("/myProfile")
+
     public String getUserProfile(Model model, Principal p) {
         if (p != null) {
             String username = p.getName();
