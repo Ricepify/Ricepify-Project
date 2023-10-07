@@ -1,23 +1,21 @@
-
 package com.Ricepify.Models;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "recipe_comment")
-public class RecipeComment {
+//@Table(name = "recipe_favorites")
+public class RecipeFavoriteEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String comment;
 
     @ManyToOne
     @JoinColumn(name="site_user_id", nullable=false)
     private SiteUserEntity siteUserEntity;
 
-
-    @ManyToOne
-    @JoinColumn(name="recipe_id", nullable=false)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "recipe_fav_id", referencedColumnName = "recipeId")
     private RecipeEntity recipeEntity;
 
     public Long getId() {
@@ -26,14 +24,6 @@ public class RecipeComment {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
     }
 
     public SiteUserEntity getSiteUserEntity() {
@@ -52,5 +42,12 @@ public class RecipeComment {
         this.recipeEntity = recipeEntity;
     }
 
-
+    @Override
+    public String toString() {
+        return "RecipeFavoriteEntity{" +
+                "id=" + id +
+                ", siteUserEntity=" + siteUserEntity +
+                ", recipeEntity=" + recipeEntity +
+                '}';
+    }
 }

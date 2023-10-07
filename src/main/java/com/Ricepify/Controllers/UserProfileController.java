@@ -24,7 +24,7 @@ import java.util.List;
 public class UserProfileController {
 
     private final MealService mealService;
-   private final SiteUserRepository siteUserRepository;
+    private final SiteUserRepository siteUserRepository;
     private final RecipeRepository recipeRepository;
 
     public UserProfileController(MealService mealService, SiteUserRepository siteUserRepository, RecipeRepository recipeRepository) {
@@ -58,7 +58,7 @@ public class UserProfileController {
         }
         return "user-info";
     }
-//    @GetMapping("/mealDetail")
+    //    @GetMapping("/mealDetail")
 //    public String mealDetail(@RequestParam("id") String id, Model model) {
 //        MealBO meal = null;
 //

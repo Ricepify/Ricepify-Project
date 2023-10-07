@@ -1,6 +1,8 @@
+
 package com.Ricepify.Models;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -15,6 +17,8 @@ public class RecipeEntity {
     private String recipeCategory;
     private String recipeArea;
     private String recipeMode;
+    private LocalDate createdAt;
+
 
     @ManyToOne
     @JoinColumn(name="site_user_id", nullable=false)
@@ -103,5 +107,12 @@ public class RecipeEntity {
         this.recipeComments = recipeComments;
     }
 
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
 
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
 }
+

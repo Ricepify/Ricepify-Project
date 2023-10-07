@@ -1,0 +1,26 @@
+.nav__contents {
+    display: flex;
+    align-items: center;
+}
+
+.nav__logo-container {
+    position: relative;
+    flex-shrink: 0;
+    width: 98px;
+    height: 49px;
+    margin: 14px 17px 18px 2px;
+    overflow: hidden;
+}
+
+.nav__logo {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+}
+
+.nav__logo svg {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+

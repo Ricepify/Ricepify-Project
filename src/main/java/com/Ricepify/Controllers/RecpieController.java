@@ -13,12 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Controller
 public class RecpieController {
@@ -64,7 +60,7 @@ public class RecpieController {
             recipeRepository.save(recipeEntity);
 
         }
-        return new RedirectView("/myprofile");
+        return new RedirectView("/myProfile");
     }
 
 
@@ -83,4 +79,3 @@ public class RecpieController {
         return "recipe-details";
     }
 }
-

@@ -4,104 +4,52 @@
     <meta charset="UTF-8">
     <title>Find Users</title>
     <link href="https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/findUser.css">
 
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            flex-direction: column;
-            font-family: 'Fugaz One', cursive;
-        }
-
-        h1 {
-            text-align: center;
-            color: #400000;
-            font-size: 4em;
-        }
-
-        .search-form {
-            margin-bottom: 20px;
-        }
-
-        .search-input {
-            padding: 10px;
-            font-size: 1em;
-        }
-
-        .search-btn {
-            padding: 10px 20px;
-            background-color: #FF0000;
-            border: none;
-            border-radius: 5px;
-            color: #FFFFFF;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 1em;
-            margin-left: 10px;
-        }
-
-        .container {
-            text-align: center;
-        }
-
-        .user-card {
-            display: inline-block;
-            text-align: center;
-            margin: 20px;
-            border-radius: 10px;
-            padding: 20px;
-        }
-
-        .user-card img {
-            border-radius: 50%;
-            width: 200px;
-            height: 200px;
-            display: block;
-            margin: 0 auto;
-        }
-
-        .user-info {
-            margin-top: 10px;
-            color: #400000;
-        }
-
-        .visit-profile-btn {
-            display: inline-block;
-            background-color: #FF0000;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            color: #FFFFFF;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .visit-profile-btn:hover {
-            background-color: #990000;
-        }
-    </style>
 </head>
 <body>
-
-<h1>Find Users</h1>
-
+<nav>
+    <div th:replace="fragment/nav-header :: nav-bar"></div>
+</nav>
 <div class="search-form">
     <form action="/search" method="get">
         <input type="text" name="query" class="search-input" placeholder="Search for users...">
         <button type="submit" class="search-btn">Search</button>
     </form>
 </div>
-
 <div class="container">
     <div th:each="user : ${users}" class="user-card">
-        <img th:src="${user.image}" alt="User Image">
-        <div class="user-info" th:text="${user.firstName + ' ' + user.lastName}"></div>
-        <a class="visit-profile-btn" th:href="@{/userinfo/{userId}(userId=${user.id})}">Visit Profile</a>
+        <a th:href="@{/userinfo/{userId}(userId=${user.id})}">
+            <img th:src="${user.image}" alt="User Image">
+        </a>
+        <a th:href="@{/userinfo/{userId}(userId=${user.id})}">
+            <div class="user-info" th:text="${user.firstName + ' ' + user.lastName}"></div>
+        </a>
     </div>
 </div>
 
+
+<section>
+    <h2>Your Feed</h2>
+    <div class="feed-cards">
+        <li class="feed-item" th:each="recipe : ${feedPosts}">
+            <div class="feed-card">
+                <div class="post-header">
+                    <a th:href="@{'/userinfo/' + ${recipe.siteUserEntity.id}}">
+                        <img th:src="${recipe.siteUserEntity.image}" alt="User Image" class="user-image">
+                    </a>
+                    <a class="view-profile-link" th:href="@{'/userinfo/' + ${recipe.siteUserEntity.id}}">
+                        <p> <span th:text="${recipe.siteUserEntity.username}">Username</span></p>
+                    </a>
+                </div>
+                <div class="post-content">
+                    <img th:src="${recipe.recipeImage}" alt="not here">
+                    <h3 th:text="${recipe.recipeTitle}">Placeholder Title</h3>
+                    <p th:text="${#strings.length(recipe.recipeDescription) > 255 ? #strings.substring(recipe.recipeDescription, 0, 255) + '...' : recipe.recipeDescription}">Placeholder Description</p>
+                </div>
+            </div>
+        </li>
+    </div>
+</section>
 </body>
 </html>
