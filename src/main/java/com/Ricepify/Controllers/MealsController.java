@@ -50,39 +50,24 @@ public class MealsController {
 
         return "mealDetail";
     }
-// TODO MOHAMMAD MAKE IT WORK
-    @PostMapping("/addToFavorites")
-    public String addToFavorites(@RequestParam("id") String id, Principal p) {
+
+    @PostMapping("/addToFavoritesExternal")
+    public String addToFavoritesExt(@RequestParam("id") String id, Principal p) {
         if (p != null) {
             String username = p.getName();
             SiteUserEntity siteUserEntity = siteUserRepository.findByUsername(username);
-            System.out.println("123asdf : asdf");
-            for (int i = 0 ; i<8;i++){
-                System.out.println("567sdf : asdf");
-                if (randomMealsList.get(i).getId().equals(id)) {
 
-
-                    System.out.println("asdf : asdf");
-                    RecipeEntity recipeEntity = new RecipeEntity();
-                    recipeEntity.setRecipeTitle(randomMealsList.get(i).getMealName());
-                    recipeEntity.setRecipeImage(randomMealsList.get(i).getImage());
-                    recipeEntity.setRecipeDescription(randomMealsList.get(i).getInstructions());
-                    recipeEntity.setRecipeCategory(randomMealsList.get(i).getCategory());
-                    recipeEntity.setRecipeArea(randomMealsList.get(i).getArea());
-                    recipeEntity.setRecipeMode("FromAPI");
-                    recipeEntity.setSiteUserEntity(siteUserEntity);
-                    //ADD if it is existed before and some logic
-                    recipeRepository.save(recipeEntity);
-                    break;
-                }
+            mealService.addFromAPIToFavUserRecipesInDB(siteUserEntity,id);
 
             }
-        }
+
 
 
         return "redirect:/";
 
     }
+
+
 //    @GetMapping("/1")
 //    public String getRandomMeal(Model model) {
 //        // Initialize the class-level field with the random meals

@@ -29,8 +29,7 @@ public class SiteUserEntity  implements UserDetails {
     @OneToMany(mappedBy = "siteUserEntity")
     private List<RecipeComment> userRecipeComments;
 
-    @OneToMany(mappedBy="siteUserEntity")
-    private List<RecipeFavoriteEntity> recipeFavoriteEntity;
+
 
     @ManyToMany
     @JoinTable(
@@ -90,13 +89,8 @@ public class SiteUserEntity  implements UserDetails {
         this.recipeEntities = recipeEntities;
     }
 
-    public List<RecipeFavoriteEntity> getRecipeFavoriteEntity() {
-        return recipeFavoriteEntity;
-    }
 
-    public void setRecipeFavoriteEntity(List<RecipeFavoriteEntity> recipeFavoriteEntity) {
-        this.recipeFavoriteEntity = recipeFavoriteEntity;
-    }
+
 
     public List<RecipeComment> getUserRecipeComments() {
         return userRecipeComments;
