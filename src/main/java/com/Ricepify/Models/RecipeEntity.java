@@ -20,9 +20,6 @@ public class RecipeEntity {
     @JoinColumn(name="site_user_id", nullable=false)
     private SiteUserEntity siteUserEntity;
 
-    @OneToOne(mappedBy = "recipeEntity")
-    private RecipeFavoriteEntity recipeFavoriteEntity;
-
     @OneToMany(mappedBy="recipeEntity")
     private List<RecipeComment> recipeComments;
 
@@ -98,14 +95,6 @@ public class RecipeEntity {
         this.siteUserEntity = siteUserEntity;
     }
 
-    public RecipeFavoriteEntity getRecipeFavoriteEntity() {
-        return recipeFavoriteEntity;
-    }
-
-    public void setRecipeFavoriteEntity(RecipeFavoriteEntity recipeFavoriteEntity) {
-        this.recipeFavoriteEntity = recipeFavoriteEntity;
-    }
-
     public List<RecipeComment> getRecipeComments() {
         return recipeComments;
     }
@@ -114,20 +103,5 @@ public class RecipeEntity {
         this.recipeComments = recipeComments;
     }
 
-    @Override
-    public String toString() {
-        return "RecipeEntity{" +
-                "recipeId=" + recipeId +
-                ", recipeTitle='" + recipeTitle + '\'' +
-                ", recipeImage='" + recipeImage + '\'' +
-                ", recipeVideo='" + recipeVideo + '\'' +
-                ", recipeDescription='" + recipeDescription + '\'' +
-                ", recipeCategory='" + recipeCategory + '\'' +
-                ", recipeArea='" + recipeArea + '\'' +
-                ", recipeMode='" + recipeMode + '\'' +
-                ", siteUserEntity=" + siteUserEntity +
-                ", recipeFavoriteEntity=" + recipeFavoriteEntity +
-                ", recipeComments=" + recipeComments +
-                '}';
-    }
+
 }

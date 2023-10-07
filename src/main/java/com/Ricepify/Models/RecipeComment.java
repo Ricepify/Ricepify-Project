@@ -51,13 +51,5 @@ public class RecipeComment {
         this.recipeEntity = recipeEntity;
     }
 
-    @Override
-    public String toString() {
-        return "RecipeComment{" +
-                "id=" + id +
-                ", comment='" + comment + '\'' +
-                ", siteUserEntity=" + siteUserEntity +
-                ", recipeEntity=" + recipeEntity +
-                '}';
-    }
+
 }

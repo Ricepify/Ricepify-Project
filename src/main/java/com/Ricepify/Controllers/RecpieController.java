@@ -1,15 +1,24 @@
 package com.Ricepify.Controllers;
 
+import com.Ricepify.Models.RecipeComment;
 import com.Ricepify.Models.RecipeEntity;
 import com.Ricepify.Models.SiteUserEntity;
 import com.Ricepify.Repositories.RecipeRepository;
 import com.Ricepify.Repositories.SiteUserRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class RecpieController {
@@ -34,7 +43,8 @@ public class RecpieController {
                                    String recipeDescription,
                                    String recipeCategory,
                                    String recipeArea,
-                                   String recipeMode) {
+                                   String recipeMode,
+                                   String recipeVideo) {
 
         if (p != null) {
             String username = p.getName();
@@ -47,25 +57,30 @@ public class RecpieController {
             recipeEntity.setRecipeCategory(recipeCategory);
             recipeEntity.setRecipeArea(recipeArea);
             recipeEntity.setRecipeMode(recipeMode);
+            recipeEntity.setRecipeVideo(recipeVideo);
             recipeEntity.setSiteUserEntity(siteUserEntity);
+
 
             recipeRepository.save(recipeEntity);
 
         }
-        return null;
+        return new RedirectView("/myprofile");
     }
 
-//    ZAID TODO TESTING
-//    @GetMapping("/viewDetails/{id}")
-//    public String viewRecipeDetails(Principal p, Model model, @PathVariable Long id) {
-//        if (p != null) {
-//            Optional<Recipe> recipe = recipeRepository.findById(id);
-//            List<RecipeInteraction> interactions = recipeInteractionRepository.findByRecipeId(id);
-//            List<String> usersComments = interactions.stream().map(RecipeInteraction::getComment).collect(Collectors.toList());
-//            model.addAttribute("recipe", recipe.get());
-//            model.addAttribute("usersComments", usersComments);
-//        }
-//        return "recipe-details";
-//    }
+
+    @GetMapping("/recipeDetails/{id}")
+    public String viewRecipeDetails(Principal p, Model model, @PathVariable Long id) {
+        if (p != null) {
+            String username = p.getName();
+            SiteUserEntity commentByUser = siteUserRepository.findByUsername(username);
+            Optional<RecipeEntity> recipe = recipeRepository.findById(id);
+            if (recipe.isPresent()) {
+                List<RecipeComment> recipeComments = recipe.get().getRecipeComments();
+                recipe.ifPresent(recipeEntity -> model.addAttribute("recipeEntity", recipeEntity));
+                model.addAttribute("usersComments", recipeComments);
+            }
+        }
+        return "recipe-details";
+    }
 }
 
