@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -68,6 +71,8 @@ public class RecpieController {
     @GetMapping("/recipeDetails/{id}")
     public String viewRecipeDetails(Principal p, Model model, @PathVariable Long id) {
         if (p != null) {
+            String username = p.getName();
+            SiteUserEntity commentByUser = siteUserRepository.findByUsername(username);
             Optional<RecipeEntity> recipe = recipeRepository.findById(id);
             if (recipe.isPresent()) {
                 List<RecipeComment> recipeComments = recipe.get().getRecipeComments();
