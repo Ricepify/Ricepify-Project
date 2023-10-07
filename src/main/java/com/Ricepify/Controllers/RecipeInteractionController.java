@@ -9,9 +9,11 @@ import com.Ricepify.Repositories.RecipeRepository;
 import com.Ricepify.Repositories.SiteUserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
@@ -45,8 +47,27 @@ public class RecipeInteractionController {
             recipeComment.setRecipeEntity(recipeEntity);
             recipeComment.setSiteUserEntity(siteUserEntity);
 
+
             recipeCommentRepository.save(recipeComment);
         }
         return new RedirectView("/recipeDetails/" + recipeId);
     }
+    //TODO ZAID
+//    @GetMapping("/deleteComment")
+//    public RedirectView deleteComment(Principal p, Model m,
+//                                      @RequestParam("commentId") Long commentId,
+//                                      @RequestParam("siteUserId") Long siteUserId,
+//                                      RedirectAttributes redirectAttribute) {
+//        // Check if the currently logged-in user is the owner of the comment
+//        if (p != null && p.getName().equals(siteUserId.toString())) {
+//            // Delete the comment based on the commentId
+//            recipeCommentRepository.deleteById(commentId);
+//        } else {
+//            redirectAttribute.addFlashAttribute("errorMessage", "You can't delete other users' comments.");
+//        }
+//
+//        // Redirect back to the recipe details page
+//        return new RedirectView("/recipeDetails/" + commentId);
+//    }
+
 }

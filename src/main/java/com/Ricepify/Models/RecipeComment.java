@@ -3,7 +3,7 @@ package com.Ricepify.Models;
 import javax.persistence.*;
 
 @Entity
-//@Table(name = "recipe_comment")
+@Table(name = "recipe_comment")
 public class RecipeComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
