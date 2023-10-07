@@ -1,3 +1,4 @@
+
 package com.Ricepify.Models;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -23,18 +24,15 @@ public class SiteUserEntity  implements UserDetails {
     private String email;
     private String image;
     private String bio;
-
     private Integer followersCount;
     private Integer followingCount;
-
     @OneToMany(mappedBy="siteUserEntity")
     private List<RecipeEntity> recipeEntities;
 
     @OneToMany(mappedBy = "siteUserEntity")
     private List<RecipeComment> userRecipeComments;
 
-    @OneToMany(mappedBy="siteUserEntity")
-    private List<RecipeFavoriteEntity> recipeFavoriteEntity;
+
 
     @ManyToMany
     @JoinTable(
@@ -94,13 +92,8 @@ public class SiteUserEntity  implements UserDetails {
         this.recipeEntities = recipeEntities;
     }
 
-    public List<RecipeFavoriteEntity> getRecipeFavoriteEntity() {
-        return recipeFavoriteEntity;
-    }
 
-    public void setRecipeFavoriteEntity(List<RecipeFavoriteEntity> recipeFavoriteEntity) {
-        this.recipeFavoriteEntity = recipeFavoriteEntity;
-    }
+
 
     public List<RecipeComment> getUserRecipeComments() {
         return userRecipeComments;
@@ -177,12 +170,8 @@ public class SiteUserEntity  implements UserDetails {
         this.bio = bio;
     }
 
-    public int getFollowersCount() {
+    public Integer getFollowersCount() {
         return followersCount;
-    }
-
-    public void setFollowersCount(int followersCount) {
-        this.followersCount = followersCount;
     }
 
     public void setFollowersCount(Integer followersCount) {
@@ -196,5 +185,5 @@ public class SiteUserEntity  implements UserDetails {
     public void setFollowingCount(Integer followingCount) {
         this.followingCount = followingCount;
     }
-
 }
+

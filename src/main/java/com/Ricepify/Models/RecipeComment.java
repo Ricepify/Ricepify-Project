@@ -1,9 +1,10 @@
+
 package com.Ricepify.Models;
 
 import javax.persistence.*;
 
 @Entity
-//@Table(name = "recipe_comment")
+@Table(name = "recipe_comment")
 public class RecipeComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,13 +52,5 @@ public class RecipeComment {
         this.recipeEntity = recipeEntity;
     }
 
-    @Override
-    public String toString() {
-        return "RecipeComment{" +
-                "id=" + id +
-                ", comment='" + comment + '\'' +
-                ", siteUserEntity=" + siteUserEntity +
-                ", recipeEntity=" + recipeEntity +
-                '}';
-    }
+
 }

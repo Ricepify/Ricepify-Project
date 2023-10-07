@@ -9,20 +9,19 @@
 <header>
   <h1>User Profile</h1>
 </header>
-  <section id="user-info">
-    <h2>User Information</h2>
-    <ul>
-      <li><strong>Username:</strong> <span th:text="${user.username}"></span></li>
-      <li><strong>First Name:</strong> <span th:text="${user.firstName}"></span></li>
-      <li><strong>Last Name:</strong> <span th:text="${user.lastName}"></span></li>
-      <li><strong>E-mail:</strong> <span th:text="${user.email}"></span></li>
-      <img th:src="${user.image}" alt="user Image"  width="100" height="100" /></li>
-      <li><strong>bio</strong> <span th:text="${user.bio}"></span></li>
-<!--      <li><span th:text="${user.recipeCount}"></span> Recipes</li>-->
-    </ul>
-  </section>
+<section id="user-info">
+  <h2>User Information</h2>
+  <ul>
+    <li><strong>Username:</strong> <span th:text="${user.username}"></span></li>
+    <li><strong>First Name:</strong> <span th:text="${user.firstName}"></span></li>
+    <li><strong>Last Name:</strong> <span th:text="${user.lastName}"></span></li>
+    <li><strong>E-mail:</strong> <span th:text="${user.email}"></span></li>
+    <img th:src="${user.image}" alt="user Image"  width="100" height="100" /></li>
+    <li><strong>bio</strong> <span th:text="${user.bio}"></span></li>
+  </ul>
+</section>
 <h2>Edit User Information</h2>
-<form th:action="@{'/myprofile'}" method="post">
+<form th:action="@{'/myProfile'}" method="post">
   <input type="hidden" name="_method" value="put">
   <input id="username" type="hidden" name="username" th:value="${user.username}">
   <label for="firstName">First Name:</label>
@@ -54,14 +53,14 @@
       <div class="card-footer">
         <a th:href="${recipe.recipeVideo}" class="btn btn-primary btn-block mb-2">Watch Video</a>
 
-        <a th:href="${'/mealDetail?id=' + recipe.recipeId}" class="btn btn-primary btn-block mb-2">
+        <a th:href="@{/recipeDetails/{userId}(userId=${recipe.recipeId})}" class="btn btn-primary btn-block mb-2">
 
 
           Details
         </a>
 
         <!-- Add to Favorites button  -->
-        <form action="/addToFavorites" method="POST">
+        <form action="/addToFavoritesInternal" method="POST">
           <input type="hidden" name="id" th:value="${recipe.recipeId}">
           <button type="submit" class="btn btn-success btn-block">Add to Favorites</button>
         </form>
