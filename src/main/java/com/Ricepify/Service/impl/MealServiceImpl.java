@@ -1,6 +1,9 @@
 package com.Ricepify.Service.impl;
 
 
+import com.Ricepify.Models.RecipeFavoriteEntity;
+import com.Ricepify.Models.SiteUserEntity;
+import com.Ricepify.Repositories.RecipeFavoriteRepository;
 import com.Ricepify.Service.MealService;
 import com.Ricepify.clint.RecipeClint;
 import org.springframework.stereotype.Service;
@@ -13,9 +16,14 @@ import java.util.List;
 public class MealServiceImpl implements MealService {
     private final RecipeClint recipeClint ;
 
-    public MealServiceImpl(RecipeClint recipeClint) {
+    private RecipeFavoriteRepository recipeFavoriteRepository;
+
+    public MealServiceImpl(RecipeClint recipeClint, RecipeFavoriteRepository recipeFavoriteRepository) {
         this.recipeClint = recipeClint;
+        this.recipeFavoriteRepository = recipeFavoriteRepository;
     }
+
+
 
     @Override
     public List<MealBO> getRandomMeals(int numberOfMeals) throws IOException {
@@ -66,5 +74,15 @@ public class MealServiceImpl implements MealService {
             System.out.println(meal.getMealName());
         }
         return meal;
+    }
+
+
+    @Override
+    public void addFromAPIToFavUserRecipesInDB(SiteUserEntity siteUserEntity ,String id){
+
+        RecipeFavoriteEntity recipeFavoriteEntity =new RecipeFavoriteEntity();
+        recipeFavoriteEntity.setSiteUserEntity(siteUserEntity);
+        recipeFavoriteEntity.setMealId(Long.valueOf(id));
+        recipeFavoriteRepository.save(recipeFavoriteEntity);
     }
 }

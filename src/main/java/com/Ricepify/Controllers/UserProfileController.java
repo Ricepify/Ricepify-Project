@@ -33,7 +33,7 @@ public class UserProfileController {
         return "/aboutus/Aboutus.html";
     }
 
-    @GetMapping("/myprofile")
+    @GetMapping("/myProfile")
     public String getUserProfile(Model model, Principal p) {
         if (p != null) {
             String username = p.getName();
@@ -63,7 +63,7 @@ public class UserProfileController {
 //
 //        return "mealDetail";
 //    }
-    @PutMapping("/myprofile")
+    @PutMapping("/myProfile")
     public RedirectView editUserInfo(Principal p, Model m, String username, String firstName, String lastName, String email, String image,String bio, RedirectAttributes redir) {
         System.out.println("Received username: " + username);
         if ((p != null) && (p.getName().equals(username))) {
@@ -81,7 +81,7 @@ public class UserProfileController {
         } else {
             redir.addFlashAttribute("errorMessage", "You are not authorized to modify another user's information.");
         }
-        return new RedirectView("/myprofile");
+        return new RedirectView("/myProfile");
     }
 
 }
