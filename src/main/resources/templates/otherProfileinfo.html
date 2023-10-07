@@ -3,44 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <title>User Profile</title>
-    <style>
+    <link rel="stylesheet" type="text/css" href="/css/otherProfileinfo.css">
 
-    </style>
 </head>
+
 <body>
 <header>
-    <h1>User Profile</h1>
+    <nav>
+        <div th:replace="fragment/nav-header :: nav-bar"></div>
+
+    </nav>
 </header>
 <main>
-    <section id="user-info">
-        <ul>
-            <li>
-                <strong>Username:</strong> <span th:text="${user.username}"></span>
-            </li>
-            <li>
-                <strong>First Name:</strong> <span th:text="${user.firstName}"></span>
-            </li>
-            <li>
-                <strong>Last Name:</strong> <span th:text="${user.lastName}"></span>
-            </li>
-            <li>
-                <strong>Email:</strong> <span th:text="${user.email}"></span>
-            </li>
-            <li>
-                <strong>Image:</strong> <img th:src="${user.image}" alt="user Image"  width="100" height="100" /></li>
-            </span>
-            </li>
-            <li>
-                <strong>Bio:</strong> <span th:text="${user.bio}"></span>
-            </li>
-        </ul>
+    <section class="user-card" style="margin-top:170px;">
+        <div class="user-info-container">
+            <div class="user-info-image">
+                <img th:src="${user.image}" alt="user Image" />
+            </div>
+                            <ul class="user-info-list">
+                                <li class="user-info-list-item">
+                                    <span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span>
+                                </li>
+                                <li class="user-info-list-item">
+                                    <span th:text="${user.username}"></span>
+                                </li>
+                                <li class="user-info-list-item">
+                                    <span th:text="${user.bio}"></span>
+                                </li>
 
-        <h2>Users to Follow</h2>
-        <form th:unless="${isCurrentUser}" method="post" th:action="@{'/follow/' + ${id}}">
-            <input type="submit" value="Follow" th:if="${not isFollowed}">
-            <input type="submit" value="Unfollow" th:if="${isFollowed}">
-        </form>
+                                <div class="followers">
+                                    <div><span th:text="${user.followersCount}"></span>    <span th:text="${user.followingCount}"></span></div>
+                                    <div><strong>Followers</strong>   <strong>Following </strong></div>
+                                </div>
 
+                                <form th:unless="${isCurrentUser}" method="post" th:action="@{'/follow/' + ${id}}" class="follow-form">
+                                    <input type="submit" value="Follow" th:if="${not isFollowed}">
+                                    <input type="submit" value="Unfollow" th:if="${isFollowed}">
+                                </form>
+
+            </ul>
+        </div>
+    </section>
+    <section class="recipes">
+        <div th:each="recipe : ${recipes}" class="recipe-card">
+            <img class="recipe-card-image" th:src="${recipe.recipeImage}" alt="Recipe Image">
+            <h3 th:text="${recipe.recipeTitle}"></h3>
+        </div>
     </section>
 </main>
 </body>

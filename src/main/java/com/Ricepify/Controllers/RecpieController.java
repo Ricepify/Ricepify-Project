@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
+import java.time.LocalDate;
 
 @Controller
 public class RecpieController {
@@ -49,6 +50,7 @@ public class RecpieController {
             recipeEntity.setRecipeArea(recipeArea);
             recipeEntity.setRecipeMode(recipeMode);
             recipeEntity.setRecipeVideo(recipeVideo);
+            recipeEntity.setCreatedAt(LocalDate.now());
             recipeEntity.setSiteUserEntity(siteUserEntity);
 
 

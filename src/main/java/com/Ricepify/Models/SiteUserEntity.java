@@ -23,6 +23,10 @@ public class SiteUserEntity  implements UserDetails {
     private String email;
     private String image;
     private String bio;
+
+    private Integer followersCount;
+    private Integer followingCount;
+
     @OneToMany(mappedBy="siteUserEntity")
     private List<RecipeEntity> recipeEntities;
 
@@ -172,4 +176,25 @@ public class SiteUserEntity  implements UserDetails {
     public void setBio(String bio) {
         this.bio = bio;
     }
+
+    public int getFollowersCount() {
+        return followersCount;
+    }
+
+    public void setFollowersCount(int followersCount) {
+        this.followersCount = followersCount;
+    }
+
+    public void setFollowersCount(Integer followersCount) {
+        this.followersCount = followersCount;
+    }
+
+    public Integer getFollowingCount() {
+        return followingCount;
+    }
+
+    public void setFollowingCount(Integer followingCount) {
+        this.followingCount = followingCount;
+    }
+
 }

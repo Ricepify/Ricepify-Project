@@ -39,9 +39,8 @@ public class UserProfileController {
             String username = p.getName();
             SiteUserEntity siteUserEntity = siteUserRepository.findByUsername(username);
             List<RecipeEntity> recipeEntities = siteUserEntity.getRecipeEntities();
-            model.addAttribute("user", siteUserEntity); // Add this line
+            model.addAttribute("user", siteUserEntity);
             model.addAttribute("recipies" , recipeEntities);
-
             model.addAttribute("user", siteUserEntity);
 
         }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Feed</title>
+  <link rel="stylesheet" href="/css/feed.css">
+</head>
+<body>
+<header class="navbar">
+  <h1>User Feed</h1>
+</header>
+<main class="feed">
+  <section>
+    <h2>Your Feed</h2>
+    <ul>
+      <li class="feed-item" th:each="recipe : ${feedPosts}">
+        <div class="post-content">
+          <h3 th:text="${recipe.recipeTitle}">Placeholder Title</h3>
+          <p th:text="${recipe.recipeDescription}">Placeholder Description</p>
+        </div>
+        <a class="view-profile-link" th:href="@{'/userinfo/' + ${recipe.siteUserEntity.id}}">
+          View Profile
+        </a>
+      </li>
+    </ul>
+  </section>
+</main>
+</body>
+</html>

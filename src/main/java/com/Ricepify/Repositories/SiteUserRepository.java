@@ -14,4 +14,6 @@ public interface SiteUserRepository extends JpaRepository<SiteUserEntity,Long> {
        List<SiteUserEntity> findByFirstNameContainingIgnoreCase(String firstName);
        @Query(value = "SELECT * FROM site_user_entity WHERE id <> :userId ORDER BY random() LIMIT :limit", nativeQuery = true)
        List<SiteUserEntity> findRandomUsersExceptUser(@Param("userId") Long userId, @Param("limit") int limit);
+       @Query("SELECT COUNT(r) FROM RecipeEntity r WHERE r.siteUserEntity = :user")
+       Long countRecipesByUser(@Param("user") SiteUserEntity user);
 }

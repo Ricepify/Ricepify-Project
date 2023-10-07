@@ -1,0 +1,28 @@
+/* Style for the navigation bar */
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #333; /* Set background color */
+    overflow: hidden;
+}
+
+/* Style for the navigation bar items */
+nav li {
+    float: left;
+}
+
+/* Style for the links in the navigation bar */
+nav a {
+    display: block;
+    color: white; /* Set text color */
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change the color of links on hover */
+nav a:hover {
+    background-color: #ddd; /* Set hover background color */
+    color: black; /* Set hover text color */
+}
