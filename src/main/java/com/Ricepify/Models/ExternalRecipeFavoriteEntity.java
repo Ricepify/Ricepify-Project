@@ -3,7 +3,8 @@ package com.Ricepify.Models;
 import javax.persistence.*;
 
 @Entity
-public class RecipeFavoriteFromUserEntity {
+//@Table(name = "recipe_favorites")
+public class ExternalRecipeFavoriteEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,7 +15,7 @@ public class RecipeFavoriteFromUserEntity {
     @JoinColumn(name="site_user_id", nullable=false)
     private SiteUserEntity siteUserEntity;
 
-    public RecipeFavoriteFromUserEntity() {
+    public ExternalRecipeFavoriteEntity() {
     }
 
     public void setMealId(Long mealId) {

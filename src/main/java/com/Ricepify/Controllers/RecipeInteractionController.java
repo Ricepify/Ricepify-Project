@@ -4,7 +4,7 @@ import com.Ricepify.Models.RecipeComment;
 import com.Ricepify.Models.RecipeEntity;
 import com.Ricepify.Models.SiteUserEntity;
 import com.Ricepify.Repositories.RecipeCommentRepository;
-import com.Ricepify.Repositories.RecipeFavoriteRepository;
+import com.Ricepify.Repositories.RecipeFavoriteFromAPIRepository;
 import com.Ricepify.Repositories.RecipeRepository;
 import com.Ricepify.Repositories.SiteUserRepository;
 import org.springframework.stereotype.Controller;
@@ -20,13 +20,13 @@ import java.security.Principal;
 public class RecipeInteractionController {
     private final SiteUserRepository siteUserRepository;
     private final RecipeRepository recipeRepository;
-    private final RecipeFavoriteRepository recipeFavoriteRepository;
+    private final RecipeFavoriteFromAPIRepository recipeFavoriteFromAPIRepository;
     private final RecipeCommentRepository recipeCommentRepository;
 
-    public RecipeInteractionController(SiteUserRepository siteUserRepository, RecipeRepository recipeRepository, RecipeFavoriteRepository recipeFavoriteRepository, RecipeCommentRepository recipeCommentRepository) {
+    public RecipeInteractionController(SiteUserRepository siteUserRepository, RecipeRepository recipeRepository, RecipeFavoriteFromAPIRepository recipeFavoriteFromAPIRepository, RecipeCommentRepository recipeCommentRepository) {
         this.siteUserRepository = siteUserRepository;
         this.recipeRepository = recipeRepository;
-        this.recipeFavoriteRepository = recipeFavoriteRepository;
+        this.recipeFavoriteFromAPIRepository = recipeFavoriteFromAPIRepository;
         this.recipeCommentRepository = recipeCommentRepository;
     }
 
