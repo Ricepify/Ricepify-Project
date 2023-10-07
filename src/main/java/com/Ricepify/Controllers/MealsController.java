@@ -51,8 +51,8 @@ public class MealsController {
         return "mealDetail";
     }
 
-    @PostMapping("/addToFavorites")
-    public String addToFavorites(@RequestParam("id") String id, Principal p) {
+    @PostMapping("/addToFavoritesExternal")
+    public String addToFavoritesExt(@RequestParam("id") String id, Principal p) {
         if (p != null) {
             String username = p.getName();
             SiteUserEntity siteUserEntity = siteUserRepository.findByUsername(username);
@@ -66,6 +66,8 @@ public class MealsController {
         return "redirect:/";
 
     }
+
+
 //    @GetMapping("/1")
 //    public String getRandomMeal(Model model) {
 //        // Initialize the class-level field with the random meals

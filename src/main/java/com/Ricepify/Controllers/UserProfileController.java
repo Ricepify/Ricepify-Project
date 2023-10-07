@@ -4,10 +4,12 @@ import com.Ricepify.Models.RecipeEntity;
 import com.Ricepify.Models.SiteUserEntity;
 import com.Ricepify.Repositories.RecipeRepository;
 import com.Ricepify.Repositories.SiteUserRepository;
+import com.Ricepify.Service.MealService;
 import com.Ricepify.bo.MealBO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -19,11 +21,12 @@ import java.util.List;
 @Controller
 public class UserProfileController {
 
-
+    private final MealService mealService;
    private final SiteUserRepository siteUserRepository;
     private final RecipeRepository recipeRepository;
 
-    public UserProfileController(SiteUserRepository siteUserRepository, RecipeRepository recipeRepository) {
+    public UserProfileController(MealService mealService, SiteUserRepository siteUserRepository, RecipeRepository recipeRepository) {
+        this.mealService = mealService;
         this.siteUserRepository = siteUserRepository;
         this.recipeRepository = recipeRepository;
     }
@@ -82,6 +85,23 @@ public class UserProfileController {
             redir.addFlashAttribute("errorMessage", "You are not authorized to modify another user's information.");
         }
         return new RedirectView("/myProfile");
+    }
+
+
+    @PostMapping("/addToFavoritesInternal")
+    public String addToFavoritesInt(@RequestParam("id") String id, Principal p) {
+        if (p != null) {
+            String username = p.getName();
+            SiteUserEntity siteUserEntity = siteUserRepository.findByUsername(username);
+
+            mealService.addFromAUserToFavUserRecipesInDB(siteUserEntity,id);
+
+        }
+
+
+
+        return "redirect:/myProfile";
+
     }
 
 }
