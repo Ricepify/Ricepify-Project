@@ -1,68 +1,83 @@
 package com.Ricepify.Controllers;
 
 import com.Ricepify.Models.RecipeComment;
-import com.Ricepify.Models.RecipeEntity;
 import com.Ricepify.Models.SiteUserEntity;
 import com.Ricepify.Repositories.RecipeCommentRepository;
-import com.Ricepify.Repositories.RecipeFavoriteFromAPIRepository;
 import com.Ricepify.Repositories.RecipeRepository;
 import com.Ricepify.Repositories.SiteUserRepository;
+import com.Ricepify.Service.RecipeCommentService;
+import com.Ricepify.Service.RecipeService;
+import com.Ricepify.Service.SiteUserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
+import java.util.Optional;
 
 @Controller
 public class RecipeInteractionController {
     private final SiteUserRepository siteUserRepository;
     private final RecipeRepository recipeRepository;
-    private final RecipeFavoriteFromAPIRepository recipeFavoriteFromAPIRepository;
     private final RecipeCommentRepository recipeCommentRepository;
+    private final SiteUserService siteUserService;
+    private final RecipeService recipeService;
+    private final RecipeCommentService recipeCommentService;
 
-    public RecipeInteractionController(SiteUserRepository siteUserRepository, RecipeRepository recipeRepository, RecipeFavoriteFromAPIRepository recipeFavoriteFromAPIRepository, RecipeCommentRepository recipeCommentRepository) {
+    public RecipeInteractionController(SiteUserRepository siteUserRepository, RecipeRepository recipeRepository, RecipeCommentRepository recipeCommentRepository, SiteUserService siteUserService, RecipeService recipeService, RecipeCommentService recipeCommentService) {
         this.siteUserRepository = siteUserRepository;
         this.recipeRepository = recipeRepository;
-        this.recipeFavoriteFromAPIRepository = recipeFavoriteFromAPIRepository;
+
         this.recipeCommentRepository = recipeCommentRepository;
+        this.siteUserService = siteUserService;
+        this.recipeService = recipeService;
+        this.recipeCommentService = recipeCommentService;
     }
 
 
-    @PostMapping("/saveComment")
-    public RedirectView savePost(Principal p, String comment, @ModelAttribute("recipeEntity") RecipeEntity recipeEntity) {
-        Long recipeId = recipeEntity.getRecipeId();
+    @PostMapping("/addComment")
+    public RedirectView addComment(Principal p, String comment,Long recipeId) throws Exception {
+
         if (p != null) {
-            String username = p.getName();
-            SiteUserEntity siteUserEntity = siteUserRepository.findByUsername(username);
-            recipeEntity = recipeRepository.findById(recipeId).orElseThrow();
-
-            RecipeComment recipeComment = new RecipeComment();
-            recipeComment.setComment(comment);
-            recipeComment.setRecipeEntity(recipeEntity);
-            recipeComment.setSiteUserEntity(siteUserEntity);
-
-
-            recipeCommentRepository.save(recipeComment);
+            recipeCommentService.addComment(comment,recipeId, p.getName());
         }
         return new RedirectView("/recipeDetails/" + recipeId);
     }
-    //TODO ZAID
-//    @GetMapping("/deleteComment")
-//    public RedirectView deleteComment(Principal p, Model m,
-//                                      @RequestParam("commentId") Long commentId,
-//                                      @RequestParam("siteUserId") Long siteUserId,
-//                                      RedirectAttributes redirectAttribute) {
-//        // Check if the currently logged-in user is the owner of the comment
-//        if (p != null && p.getName().equals(siteUserId.toString())) {
-//            // Delete the comment based on the commentId
-//            recipeCommentRepository.deleteById(commentId);
-//        } else {
-//            redirectAttribute.addFlashAttribute("errorMessage", "You can't delete other users' comments.");
-//        }
-//
-//        // Redirect back to the recipe details page
-//        return new RedirectView("/recipeDetails/" + commentId);
-//    }
+
+    @PostMapping("/deleteComment")
+    public RedirectView deleteComment(
+            @RequestParam("id") Long commentId,
+            @RequestParam("siteUserId") Long siteUserId,
+            Principal principal,
+            RedirectAttributes redirectAttributes ,
+            Model model) {
+
+        if (principal != null) {
+            String username = principal.getName();
+
+            Optional<RecipeComment> optionalComment = recipeCommentRepository.findById(commentId);
+            SiteUserEntity siteUserEntity = siteUserRepository.findByUsername(principal.getName());
+
+            if (optionalComment.isPresent()) {
+                RecipeComment existingComment = optionalComment.get();
+
+                if (siteUserEntity.getId().equals(siteUserId)) {
+                    Long recipeId = existingComment.getRecipeEntity().getRecipeId();
+
+                    recipeCommentRepository.deleteById(existingComment.getId());
+
+                    return new RedirectView("/recipeDetails/" + recipeId);
+                } else {
+                    redirectAttributes.addFlashAttribute("errorMessage", "You can't delete other users' comments.");
+                }
+            }
+            model.addAttribute("principal", principal);
+
+        }
+        return new RedirectView("/recipeDetails/{recipeId}");
+    }
 
 }
