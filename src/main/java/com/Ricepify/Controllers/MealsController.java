@@ -1,11 +1,12 @@
 package com.Ricepify.Controllers;
 
-import com.Ricepify.Models.RecipeEntity;
+import com.Ricepify.Service.ExternalApi.ExternalApiService;
 import com.Ricepify.Service.MealService;
 import com.Ricepify.bo.MealBO;
 import com.Ricepify.Models.SiteUserEntity;
 import com.Ricepify.Repositories.RecipeRepository;
 import com.Ricepify.Repositories.SiteUserRepository;
+import com.Ricepify.bo.externalAPI.MealResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -24,12 +26,30 @@ public class MealsController {
     private final RecipeRepository recipeRepository;
     private final SiteUserRepository siteUserRepository;
 
-    public MealsController(MealService mealService, RecipeRepository recipeRepository, SiteUserRepository siteUserRepository) {
+    private final ExternalApiService externalApiService;
+    public MealsController(MealService mealService, RecipeRepository recipeRepository, SiteUserRepository siteUserRepository, ExternalApiService externalApiService) {
         this.mealService = mealService;
         this.recipeRepository = recipeRepository;
         this.siteUserRepository = siteUserRepository;
+        this.externalApiService = externalApiService;
     }
 
+    @GetMapping("/searchByAreaOrCategory")
+    public String search(@RequestParam(name = "query") String query,
+                         @RequestParam(name = "searchType") String searchType,
+                         Model model) {
+
+        List<MealResponse> searchResults = new ArrayList<>();
+        if ("category".equals(searchType)) {
+            searchResults = externalApiService.searchByCategory(query);
+        } else if ("area".equals(searchType)) {
+            searchResults = externalApiService.searchByArea(query);
+        }
+
+        System.out.println(searchResults);
+        model.addAttribute("meals", searchResults);
+        return "search-results";
+    }
 
     @GetMapping("/")
     public String getRandomMeals(Model model) {
