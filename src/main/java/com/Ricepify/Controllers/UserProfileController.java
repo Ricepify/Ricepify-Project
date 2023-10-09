@@ -2,10 +2,10 @@ package com.Ricepify.Controllers;
 
 import com.Ricepify.Models.RecipeEntity;
 import com.Ricepify.Models.SiteUserEntity;
+import com.Ricepify.Models.SiteUserEntityBuilder;
 import com.Ricepify.Repositories.RecipeRepository;
 import com.Ricepify.Repositories.SiteUserRepository;
 import com.Ricepify.Service.MealService;
-import com.Ricepify.bo.MealBO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
-import org.springframework.web.bind.annotation.PostMapping;
-
 
 import java.security.Principal;
 import java.util.List;
@@ -34,15 +32,9 @@ public class UserProfileController {
     }
 
     @GetMapping("/aboutus")
-    public String getaboutus(){
+    public String getaboutus() {
         return "/aboutus/Aboutus.html";
     }
-
-
-
-
-
-
     @GetMapping("/myProfile")
 
     public String getUserProfile(Model model, Principal p) {
@@ -51,13 +43,14 @@ public class UserProfileController {
             SiteUserEntity siteUserEntity = siteUserRepository.findByUsername(username);
             List<RecipeEntity> recipeEntities = siteUserEntity.getRecipeEntities();
             model.addAttribute("user", siteUserEntity); // Add this line
-            model.addAttribute("recipies" , recipeEntities);
+            model.addAttribute("recipies", recipeEntities);
 
             model.addAttribute("user", siteUserEntity);
 
         }
         return "user-info";
     }
+
     //    @GetMapping("/mealDetail")
 //    public String mealDetail(@RequestParam("id") String id, Model model) {
 //        MealBO meal = null;
@@ -75,7 +68,7 @@ public class UserProfileController {
 //        return "mealDetail";
 //    }
     @PutMapping("/myProfile")
-    public RedirectView editUserInfo(Principal p, Model m, String username, String firstName, String lastName, String email, String image,String bio, RedirectAttributes redir) {
+    public RedirectView editUserInfo(Principal p, Model m, String username, String firstName, String lastName, String email, String image, String bio, RedirectAttributes redir) {
         System.out.println("Received username: " + username);
         if ((p != null) && (p.getName().equals(username))) {
             SiteUserEntity siteUserEntity = siteUserRepository.findByUsername(username);
@@ -87,6 +80,7 @@ public class UserProfileController {
             siteUserEntity.setEmail(email);
             siteUserEntity.setImage(image);
             siteUserEntity.setBio(bio);
+
             siteUserRepository.save(siteUserEntity);
             System.out.println("User saved successfully");
         } else {
@@ -102,10 +96,9 @@ public class UserProfileController {
             String username = p.getName();
             SiteUserEntity siteUserEntity = siteUserRepository.findByUsername(username);
 
-            mealService.addFromAUserToFavUserRecipesInDB(siteUserEntity,id);
+            mealService.addFromAUserToFavUserRecipesInDB(siteUserEntity, id);
 
         }
-
 
 
         return "redirect:/myProfile";

@@ -1,6 +1,5 @@
 package com.Ricepify.Controllers;
 
-import com.Ricepify.Models.RecipeEntity;
 import com.Ricepify.Service.MealService;
 import com.Ricepify.bo.MealBO;
 import com.Ricepify.Models.SiteUserEntity;

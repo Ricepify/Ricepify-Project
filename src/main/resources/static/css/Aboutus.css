@@ -1,0 +1,230 @@
+:root {
+  --background-colors: red, green, blue, yellow, orange;
+}
+
+#text {
+  border-right: 2px solid #000;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 3s steps(20) forwards;
+}
+
+@keyframes typing {
+  0% {
+      width: 0;
+  }
+  100% {
+      width: 100%;
+  }
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    background-color: #f5f5f5;
+
+  }
+
+  html {
+    box-sizing: border-box;
+  }
+
+   img {
+    border-radius:15px ;
+
+  }
+
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+  .column:hover{
+    padding: 1px;
+    box-shadow: 1px 14px 10px rgba(0, 0, 0, 0.1);
+  }
+  .column {
+    float: left;
+    width: 20%;
+    margin-bottom: 16px;
+    padding: 0 8px;
+
+  }
+
+  .card {
+    border-radius:15px ;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 8px;
+  }
+
+.about-section {
+  width: 70%;
+  padding: 50px;
+  text-align: center;
+  background-color: #f0eded;
+  color: #400000;
+  border-radius: 20px;
+  margin-left: 15%;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.about-section h1{
+color: #FF0000;
+  font-family: 'Fugaz One', cursive;
+  font-size: 30px;
+}
+  .container {
+    padding: 0 16px;
+  }
+.title-main {
+  color: #FF0000;
+  font-family: 'Fugaz One', cursive;
+  font-size: 50px;
+}
+
+  .ourName{
+  color:#400000;
+  }
+  .container::after, .row::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+  .title {
+    color: grey;
+  }
+  
+  .button {
+    border-radius: 15px;
+    border: none;
+    outline: 0;
+    display: flexbox;
+    padding: 8px;
+    height: 50px;
+    color: rgb(255, 255, 255);
+    background-color: #0E76A8;
+    text-align: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 90%;
+    margin-left: 10px;
+  }
+
+  .button2 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    border: none;
+    outline: 0;
+    display: flexbox;
+    padding: 8px;
+    height: 50px;
+    color: rgb(255, 255, 255);
+    background-color: #000000;
+    text-align: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 90%;
+    margin-left: 10px;
+  }
+  
+  .button:hover {
+    background-color: #555;
+  }
+
+  .button2:hover {
+    background-color: #868686;
+  }
+  
+  @media screen and (max-width: 650px) {
+    .column {
+      width: 100%;
+      display: block;
+    }
+  }
+
+
+
+nav {
+      width: 100%;
+      background-color: #f0eded;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      position: fixed;
+      top: 0;
+      z-index: 1000;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    nav .logo-container img {
+      max-height: 100%;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav li {
+      float: right;
+    }
+
+    nav a {
+      display: inline;
+      color: #333;
+      padding: 10px 16px;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+
+    .image-container {
+      width: 250px;
+      height: 50px;
+      overflow: visible;
+    }
+
+    .image-container img {
+      width: 300px;
+      height: 130px;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    body {
+      margin-top: 70px;
+      margin-bottom: 50px;
+    }
+    .image-container img:hover {
+      transform: scale(1.1);
+      transition: transform 0.1s ease;
+    }
+
+    .details-btn {
+        margin-left:700px;
+        border-radius: 8px;
+            background-color: #FF0000;
+            color: #FFFFFF;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-bottom:20px !important;
+    }
+      .linkedin-icon {
+        vertical-align: middle;
+        margin-right: 5px;
+        width:40px;
+        height:40px;
+      }
+
+.icony{
+margin-left:70px;
+margin-right:70px;
+margin-bottom:20px !important;
+}

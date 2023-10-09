@@ -1,0 +1,62 @@
+body {
+    font-family: 'Electrolize', sans-serif;
+}
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: left;
+    width: 600px;
+    margin: 0 auto;
+}
+
+.content {
+    flex: 1;
+    max-width: 60%;
+    color: #400000;
+}
+
+.image-container {
+    flex: 1;
+    max-width: 40%;
+    text-align: right;
+}
+
+.image-container img {
+    max-width: 200px;
+    height: auto;
+}
+
+h1 {
+    color: #FF0000;
+    font-size: 100px;
+    margin: 0;
+}
+
+p {
+    font-size: 24px;
+    margin-top: 10px;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+      .custom-link {
+            color: #FF0000;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .arrow-icon::after {
+            content: "\2192";
+            margin-left: 5px;
+        }

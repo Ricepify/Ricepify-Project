@@ -183,3 +183,13 @@ nav {
       transform: scale(1.1);
       transition: transform 0.1s ease;
     }
+
+    .details-btn {
+        margin-left:700px;
+        border-radius: 8px;
+            background-color: #FF0000;
+            color: #FFFFFF;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+    }

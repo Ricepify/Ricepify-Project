@@ -1,9 +1,10 @@
 package com.Ricepify.Models;
 
+import lombok.*;
 import javax.persistence.*;
 
 @Entity
-//@Table(name = "recipe_favorites")
+@Data
 public class ExternalRecipeFavoriteEntity {
 
     @Id
@@ -11,6 +12,7 @@ public class ExternalRecipeFavoriteEntity {
     private Long id;
 
     private Long mealId;
+
     @ManyToOne
     @JoinColumn(name="site_user_id", nullable=false)
     private SiteUserEntity siteUserEntity;
