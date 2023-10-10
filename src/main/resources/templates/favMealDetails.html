@@ -72,8 +72,7 @@
     </div>
     <div class="card-footer">
       <!-- Button to go back to the previous page WITHOUT REFRESH -->
-      <a href="/"  class="btn btn-secondary">Back</a>
-
+      <a href="/favorite" onclick="history.go(-1);" class="btn btn-secondary">Back</a>
       <a th:href="${meal.video}" class="btn btn-secondary" target="_blank">Watch Video</a>
     </div>
   </div>
