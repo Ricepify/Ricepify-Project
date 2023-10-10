@@ -2,6 +2,7 @@ package com.Ricepify.Controllers;
 
 import com.Ricepify.Models.RecipeEntity;
 import com.Ricepify.Models.SiteUserEntity;
+import com.Ricepify.Models.SiteUserEntityBuilder;
 import com.Ricepify.Repositories.RecipeRepository;
 import com.Ricepify.Repositories.SiteUserRepository;
 import com.Ricepify.Service.MealService;
@@ -32,23 +33,37 @@ public class UserProfileController {
     public String getaboutus() {
         return "/aboutus/Aboutus.html";
     }
+
     @GetMapping("/myProfile")
     public String getUserProfile(Model model, Principal p) {
         if (p != null) {
             String username = p.getName();
             SiteUserEntity siteUserEntity = siteUserService.getUserByUsername(username);
             List<RecipeEntity> recipeEntities = siteUserEntity.getRecipeEntities();
+
+            model.addAttribute("user", siteUserEntity); // Add this line
+            model.addAttribute("recipies", recipeEntities);
+
             model.addAttribute("user", siteUserEntity);
             model.addAttribute("recipies", recipeEntities);
         }
         return "user-info";
     }
+
     @PutMapping("/myProfile")
     public RedirectView editUserInfo(Principal p, Model m, String username, String firstName, String lastName, String email, String image, String bio, RedirectAttributes redir) {
+        SiteUserEntity siteUser = new SiteUserEntity();
+        siteUser.setFirstName(firstName);
+        siteUser.setLastName(lastName);
+        siteUser.setUsername(username);
+        siteUser.setEmail(email);
+        siteUser.setImage(image);
+        siteUser.setBio(bio);
 
-        siteUserService.editUserInfo(p, m, username, firstName, lastName, email, image, bio, redir);
+        siteUserService.editUserInfo(p, m, siteUser, redir);
         return new RedirectView("/myProfile");
     }
+    
     @PostMapping("/addToFavoritesInternal")
     public String addToFavoritesInt(@RequestParam("id") String id, Principal p) {
         if (p != null) {
@@ -56,6 +71,7 @@ public class UserProfileController {
             SiteUserEntity siteUserEntity = siteUserService.getUserByUsername(username);
 
             mealService.addFromAUserToFavUserRecipesInDB(siteUserEntity, id);
+
         }
         return "redirect:/myProfile";
     }

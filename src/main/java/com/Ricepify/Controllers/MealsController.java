@@ -1,5 +1,4 @@
 package com.Ricepify.Controllers;
-
 import com.Ricepify.Service.ExternalApi.ExternalApiService;
 import com.Ricepify.Service.MealService;
 import com.Ricepify.bo.MealBO;

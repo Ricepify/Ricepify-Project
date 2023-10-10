@@ -1,6 +1,7 @@
 package com.Ricepify.Controllers;
 
 import com.Ricepify.Models.SiteUserEntity;
+import com.Ricepify.Models.SiteUserEntityBuilder;
 import com.Ricepify.Repositories.SiteUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -49,34 +50,67 @@ public class SiteUserController {
         return "signup";
     }
 
-    @PostMapping("/signup")
-    public RedirectView createUser(String username, String firstName, String lastName, String email, String password,String bio, String image) {
-        if (!password.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?\":{}|<>]).{8,}$")) {
-            return new RedirectView("/signup?error=invalidPassword");
-        }
-        SiteUserEntity siteUserEntity = new SiteUserEntity();
-        siteUserEntity.setUsername(username);
-        String encPass = passwordEncoder.encode(password);
-        siteUserEntity.setPassword(encPass);
-        siteUserEntity.setFirstName(firstName);
-        siteUserEntity.setLastName(lastName);
-        siteUserEntity.setEmail(email);
-        siteUserEntity.setBio(bio);
-        if (siteUserEntity.getBio() == null || siteUserEntity.getBio().isEmpty()) {
-            siteUserEntity.setBio("Update Your Bio ...");
-        }
-        if (siteUserEntity.getImage() == null || siteUserEntity.getImage().isEmpty()) {
-            siteUserEntity.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/2048px-Windows_10_Default_Profile_Picture.svg.png");
-        }
-        siteUserEntity.setFollowersCount(0);
-        siteUserEntity.setFollowingCount(0);
-        System.out.println("Bio: " + siteUserEntity.getBio());
-        System.out.println("Image: " + siteUserEntity.getImage());
+//    @PostMapping("/signup")
+//    public RedirectView createUser(String username, String firstName, String lastName, String email, String password,String bio, String image) {
+//        if (!password.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?\":{}|<>]).{8,}$")) {
+//            return new RedirectView("/signup?error=invalidPassword");
+//        }
+//        SiteUserEntity siteUserEntity = new SiteUserEntity();
+//        siteUserEntity.setUsername(username);
+//        String encPass = passwordEncoder.encode(password);
+//        siteUserEntity.setPassword(encPass);
+//        siteUserEntity.setFirstName(firstName);
+//        siteUserEntity.setLastName(lastName);
+//        siteUserEntity.setEmail(email);
+//        siteUserEntity.setBio(bio);
+//
+//
+//
+//        if (siteUserEntity.getBio() == null || siteUserEntity.getBio().isEmpty()) {
+//            siteUserEntity.setBio("Update Your Bio ...");
+//        }
+//        if (siteUserEntity.getImage() == null || siteUserEntity.getImage().isEmpty()) {
+//            siteUserEntity.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/2048px-Windows_10_Default_Profile_Picture.svg.png");
+//        }
+//        siteUserEntity.setFollowersCount(0);
+//        siteUserEntity.setFollowingCount(0);
+//        System.out.println("Bio: " + siteUserEntity.getBio());
+//        System.out.println("Image: " + siteUserEntity.getImage());
+//
+//        siteUserRepository.save(siteUserEntity);
+//        authWithServRequest(username, password);
+//        return new RedirectView("/login");
+//    }
 
-        siteUserRepository.save(siteUserEntity);
-        authWithServRequest(username, password);
-        return new RedirectView("/login");
+
+//
+@PostMapping("/signup")
+public RedirectView createUser(String username, String firstName, String lastName, String email, String password, String bio, String image) {
+    if (!password.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?\":{}|<>]).{8,}$")) {
+        return new RedirectView("/signup?error=invalidPassword");
     }
+    SiteUserEntity siteUserEntity = new SiteUserEntityBuilder(passwordEncoder)
+            .setUsername(username)
+            .setFirstName(firstName)
+            .setLastName(lastName)
+            .setEmail(email)
+            .setPassword(password)
+            .setBio(bio)
+            .setImage(image)
+            .setFollowersCount(0)
+            .setFollowingCount(0)
+            .build();
+    if (siteUserEntity.getBio() == null || siteUserEntity.getBio().isEmpty()) {
+        siteUserEntity.setBio("Update Your Bio ...");
+    }
+    if (siteUserEntity.getImage() == null || siteUserEntity.getImage().isEmpty()) {
+        siteUserEntity.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/2048px-Windows_10_Default_Profile_Picture.svg.png");
+    }
+
+    siteUserRepository.save(siteUserEntity);
+    authWithServRequest(username, password);
+    return new RedirectView("/login");
+}
 
     public void authWithServRequest(String username, String password) {
         try {

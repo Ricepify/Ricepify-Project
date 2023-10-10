@@ -43,7 +43,8 @@ dependencies {
 	implementation 'de.vinado.boot:spring-boot-autoconfigure-dkim-javamail:1.2.2'
 	implementation 'de.vinado.boot:spring-boot-starter-dkim-javamail:1.2.2'
 	implementation 'de.vinado.boot:spring-boot-dkim-javamail:1.2.2'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    implementation 'org.projectlombok:lombok:1.18.22'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
 //	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	runtimeOnly 'com.h2database:h2'
@@ -54,6 +55,10 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	// PostgreSQL Driver
 	implementation 'org.postgresql:postgresql'
+
+
+	compileOnly 'org.projectlombok:lombok:1.18.22'
+	annotationProcessor 'org.projectlombok:lombok:1.18.22'
 }
 
 tasks.named('test') {

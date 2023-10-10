@@ -9,14 +9,7 @@ import java.util.List;
 
 public interface RecipeService {
 
-    void saveRecipe(Principal p,
-                    String recipeTitle,
-                    String recipeImage,
-                    String recipeDescription,
-                    String recipeCategory,
-                    String recipeArea,
-                    String recipeMode,
-                    String recipeVideo);
+    void saveRecipe(RecipeEntity recipeEntity, Principal principal);
 
     RecipeEntity getRecipeById(Long recipeId);
 

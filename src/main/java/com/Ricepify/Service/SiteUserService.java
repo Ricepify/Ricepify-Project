@@ -15,12 +15,7 @@ public interface SiteUserService {
     SiteUserEntity getUserByUsername(String username);
     void editUserInfo(Principal p,
                       Model m,
-                      String username,
-                      String firstName,
-                      String lastName,
-                      String email,
-                      String image,
-                      String bio,
+                      SiteUserEntity siteUser,
                       RedirectAttributes redir);
     List<SiteUserEntity> getRandomUsers(Long loggedInUser , int limit);
 

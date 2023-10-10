@@ -56,8 +56,6 @@
         <a th:href="@{/recipeDetails/{userId}(userId=${recipe.recipeId})}" class="btn btn-primary btn-block mb-2">
           Details
         </a>
-
-        <!-- Add to Favorites button  -->
         <form action="/addToFavoritesInternal" method="POST">
           <input type="hidden" name="id" th:value="${recipe.recipeId}">
           <button type="submit" class="btn btn-success btn-block">Add to Favorites</button>

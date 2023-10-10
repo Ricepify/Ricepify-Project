@@ -1,8 +1,13 @@
 package com.Ricepify.Models;
 
+import lombok.*;
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class InternalRecipeFavoriteEntity {
 
     @Id
@@ -10,12 +15,11 @@ public class InternalRecipeFavoriteEntity {
     private Long id;
 
     private Long mealId;
+
     @ManyToOne
     @JoinColumn(name="site_user_id", nullable=false)
     private SiteUserEntity siteUserEntity;
 
-    public InternalRecipeFavoriteEntity() {
-    }
 
     public void setMealId(Long mealId) {
         this.mealId = mealId;

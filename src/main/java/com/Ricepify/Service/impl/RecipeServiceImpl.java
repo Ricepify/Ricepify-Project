@@ -21,20 +21,12 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public void saveRecipe(Principal p, String recipeTitle, String recipeImage, String recipeDescription, String recipeCategory, String recipeArea, String recipeMode, String recipeVideo) {
+    public void saveRecipe(RecipeEntity recipeEntity, Principal principal) {
 
-        if (p != null) {
-            String username = p.getName();
+        if (principal != null) {
+            String username = principal.getName();
             SiteUserEntity siteUserEntity = siteUserRepository.findByUsername(username);
 
-            RecipeEntity recipeEntity = new RecipeEntity();
-            recipeEntity.setRecipeTitle(recipeTitle);
-            recipeEntity.setRecipeImage(recipeImage);
-            recipeEntity.setRecipeDescription(recipeDescription);
-            recipeEntity.setRecipeCategory(recipeCategory);
-            recipeEntity.setRecipeArea(recipeArea);
-            recipeEntity.setRecipeMode(recipeMode);
-            recipeEntity.setRecipeVideo(recipeVideo);
             recipeEntity.setSiteUserEntity(siteUserEntity);
 
             recipeRepository.save(recipeEntity);

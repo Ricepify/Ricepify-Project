@@ -20,26 +20,26 @@
             <div class="user-info-image">
                 <img th:src="${user.image}" alt="user Image" />
             </div>
-                            <ul class="user-info-list">
-                                <li class="user-info-list-item">
-                                    <span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span>
-                                </li>
-                                <li class="user-info-list-item">
-                                    <span th:text="${user.username}"></span>
-                                </li>
-                                <li class="user-info-list-item">
-                                    <span th:text="${user.bio}"></span>
-                                </li>
+            <ul class="user-info-list">
+                <li class="user-info-list-item">
+                    <span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span>
+                </li>
+                <li class="user-info-list-item">
+                    <span th:text="${user.username}"></span>
+                </li>
+                <li class="user-info-list-item">
+                    <span th:text="${user.bio}"></span>
+                </li>
 
-                                <div class="followers">
-                                    <div><span th:text="${user.followersCount}"></span>    <span th:text="${user.followingCount}"></span></div>
-                                    <div><strong>Followers</strong>   <strong>Following </strong></div>
-                                </div>
+                <div class="followers">
+                    <div><span th:text="${user.followersCount}"></span>    <span th:text="${user.followingCount}"></span></div>
+                    <div><strong>Followers</strong>   <strong>Following </strong></div>
+                </div>
 
-                                <form th:unless="${isCurrentUser}" method="post" th:action="@{'/follow/' + ${id}}" class="follow-form">
-                                    <input type="submit" value="Follow" th:if="${not isFollowed}">
-                                    <input type="submit" value="Unfollow" th:if="${isFollowed}">
-                                </form>
+                <form th:unless="${isCurrentUser}" method="post" th:action="@{'/follow/' + ${id}}" class="follow-form">
+                    <input type="submit" value="Follow" th:if="${not isFollowed}">
+                    <input type="submit" value="Unfollow" th:if="${isFollowed}">
+                </form>
 
             </ul>
         </div>
