@@ -3,8 +3,8 @@ package com.Ricepify.Controllers;
 import com.Ricepify.Models.RecipeComment;
 import com.Ricepify.Models.RecipeEntity;
 import com.Ricepify.Models.SiteUserEntity;
-import com.Ricepify.Repositories.RecipeRepository;
-import com.Ricepify.Repositories.SiteUserRepository;
+import com.Ricepify.Service.RecipeService;
+import com.Ricepify.Service.SiteUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,14 +18,14 @@ import java.util.Optional;
 
 @Controller
 public class RecpieController {
-    private final SiteUserRepository siteUserRepository;
-    private final RecipeRepository recipeRepository;
+    private final RecipeService recipeService;
+    private final SiteUserService siteUserService;
 
-
-    public RecpieController(SiteUserRepository siteUserRepository, RecipeRepository recipeRepository) {
-        this.siteUserRepository = siteUserRepository;
-        this.recipeRepository = recipeRepository;
+    public RecpieController(RecipeService recipeService, SiteUserService siteUserService) {
+        this.recipeService = recipeService;
+        this.siteUserService = siteUserService;
     }
+
 
     @GetMapping("/addNew_recipe")
     public String addNewRecipe() {
@@ -42,38 +42,23 @@ public class RecpieController {
                                    String recipeMode,
                                    String recipeVideo) {
 
-        if (p != null) {
-            String username = p.getName();
-            SiteUserEntity siteUserEntity = siteUserRepository.findByUsername(username);
+        recipeService.saveRecipe(p , recipeTitle , recipeImage , recipeDescription , recipeCategory, recipeArea, recipeMode , recipeVideo);
 
-            RecipeEntity recipeEntity = new RecipeEntity();
-            recipeEntity.setRecipeTitle(recipeTitle);
-            recipeEntity.setRecipeImage(recipeImage);
-            recipeEntity.setRecipeDescription(recipeDescription);
-            recipeEntity.setRecipeCategory(recipeCategory);
-            recipeEntity.setRecipeArea(recipeArea);
-            recipeEntity.setRecipeMode(recipeMode);
-            recipeEntity.setRecipeVideo(recipeVideo);
-            recipeEntity.setSiteUserEntity(siteUserEntity);
-
-
-            recipeRepository.save(recipeEntity);
-
-        }
         return new RedirectView("/myProfile");
     }
-
 
     @GetMapping("/recipeDetails/{id}")
     public String viewRecipeDetails(Principal p, Model model, @PathVariable Long id) {
         if (p != null) {
             String username = p.getName();
-            SiteUserEntity commentByUser = siteUserRepository.findByUsername(username);
-            Optional<RecipeEntity> recipe = recipeRepository.findById(id);
-            if (recipe.isPresent()) {
-                List<RecipeComment> recipeComments = recipe.get().getRecipeComments();
-                recipe.ifPresent(recipeEntity -> model.addAttribute("recipeEntity", recipeEntity));
+            SiteUserEntity commentByUser = siteUserService.getUserByUsername(username);
+            RecipeEntity recipe = recipeService.getRecipeById(id);
+
+            if (recipe != null) {
+                List<RecipeComment> recipeComments = recipe.getRecipeComments();
+                model.addAttribute("recipeEntity", recipe);
                 model.addAttribute("usersComments", recipeComments);
+                model.addAttribute("loggedInUserID", commentByUser.getId());
             }
         }
         return "recipe-details";

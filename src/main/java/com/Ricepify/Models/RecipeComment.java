@@ -15,7 +15,6 @@ public class RecipeComment {
     @JoinColumn(name="site_user_id", nullable=false)
     private SiteUserEntity siteUserEntity;
 
-
     @ManyToOne
     @JoinColumn(name="recipe_id", nullable=false)
     private RecipeEntity recipeEntity;
