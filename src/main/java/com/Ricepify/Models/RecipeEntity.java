@@ -6,7 +6,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Data
+@Builder
+@Getter
+@Setter
+@AllArgsConstructor
 @NoArgsConstructor
 public class RecipeEntity {
     @Id

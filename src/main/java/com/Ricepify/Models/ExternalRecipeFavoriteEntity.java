@@ -4,7 +4,10 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ExternalRecipeFavoriteEntity {
 
     @Id
@@ -16,9 +19,6 @@ public class ExternalRecipeFavoriteEntity {
     @ManyToOne
     @JoinColumn(name="site_user_id", nullable=false)
     private SiteUserEntity siteUserEntity;
-
-    public ExternalRecipeFavoriteEntity() {
-    }
 
     public void setMealId(Long mealId) {
         this.mealId = mealId;

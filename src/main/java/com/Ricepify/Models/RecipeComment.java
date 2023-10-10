@@ -5,7 +5,10 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "recipe_comment")
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class RecipeComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
