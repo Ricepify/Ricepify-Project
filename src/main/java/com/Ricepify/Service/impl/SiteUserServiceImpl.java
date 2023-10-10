@@ -36,18 +36,18 @@ public class SiteUserServiceImpl implements SiteUserService {
     }
 
     @Override
-    public void editUserInfo(Principal p, Model m, String username, String firstName, String lastName, String email, String image, String bio, RedirectAttributes redir) {
-        System.out.println("Received username: " + username);
-        if ((p != null) && (p.getName().equals(username))) {
-            SiteUserEntity siteUserEntity = siteUserRepository.findByUsername(username);
+    public void editUserInfo(Principal p, Model m, SiteUserEntity siteUser, RedirectAttributes redir) {
+        System.out.println("Received username: " + siteUser.getUsername());
+        if ((p != null) && (p.getName().equals(siteUser.getUsername()))) {
+            SiteUserEntity siteUserEntity = siteUserRepository.findByUsername(siteUser.getUsername());
             System.out.println("Found user: " + siteUserEntity);
             m.addAttribute("id", siteUserEntity.getId());
-            siteUserEntity.setUsername(username);
-            siteUserEntity.setFirstName(firstName);
-            siteUserEntity.setLastName(lastName);
-            siteUserEntity.setEmail(email);
-            siteUserEntity.setImage(image);
-            siteUserEntity.setBio(bio);
+            siteUserEntity.setUsername(siteUser.getUsername());
+            siteUserEntity.setFirstName(siteUser.getFirstName());
+            siteUserEntity.setLastName(siteUser.getLastName());
+            siteUserEntity.setEmail(siteUser.getEmail());
+            siteUserEntity.setImage(siteUser.getImage());
+            siteUserEntity.setBio(siteUser.getBio());
             siteUserRepository.save(siteUserEntity);
             System.out.println("User saved successfully");
         } else {

@@ -5,7 +5,8 @@ import com.Ricepify.Models.RecipeEntity;
 import com.Ricepify.Models.RecipeEntityBuilder;
 import com.Ricepify.Models.SiteUserEntity;
 import com.Ricepify.Repositories.RecipeRepository;
-import com.Ricepify.Repositories.SiteUserRepository;
+import com.Ricepify.Service.RecipeService;
+import com.Ricepify.Service.SiteUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +21,15 @@ import java.util.Optional;
 
 @Controller
 public class RecpieController {
-    private final SiteUserRepository siteUserRepository;
+    private final SiteUserService siteUserService;
+
+    private final RecipeService recipeService;
+
     private final RecipeRepository recipeRepository;
 
-    public RecpieController(SiteUserRepository siteUserRepository, RecipeRepository recipeRepository) {
-        this.siteUserRepository = siteUserRepository;
+    public RecpieController(SiteUserService siteUserService, RecipeService recipeService, RecipeRepository recipeRepository) {
+        this.siteUserService = siteUserService;
+        this.recipeService = recipeService;
         this.recipeRepository = recipeRepository;
     }
 
@@ -34,10 +39,10 @@ public class RecpieController {
     }
 
     @PostMapping("/save_recipe")
-    public RedirectView saveRecipe(Principal p, String recipeTitle, String recipeImage, String recipeDescription, String recipeCategory, String recipeArea, String recipeMode, String recipeVideo) {
-        if (p != null) {
-            String username = p.getName();
-            SiteUserEntity siteUserEntity = siteUserRepository.findByUsername(username);
+    public RedirectView saveRecipe(Principal principal, String recipeTitle, String recipeImage, String recipeDescription, String recipeCategory, String recipeArea, String recipeMode, String recipeVideo) {
+        if (principal != null) {
+            String username = principal.getName();
+            SiteUserEntity siteUserEntity = siteUserService.getUserByUsername(username);
             LocalDate createdAt = LocalDate.now();
             RecipeEntity recipeEntity = new RecipeEntityBuilder()
                     .setRecipeTitle(recipeTitle)
@@ -51,7 +56,7 @@ public class RecpieController {
                     .setCreatedAt(createdAt)
                     .build();
 
-            recipeRepository.save(recipeEntity);
+            recipeService.saveRecipe(recipeEntity,principal);
         }
         return new RedirectView("/myProfile");
     }
@@ -60,7 +65,7 @@ public class RecpieController {
     public String viewRecipeDetails(Principal p, Model model, @PathVariable Long id) {
         if (p != null) {
             String username = p.getName();
-            SiteUserEntity commentByUser = siteUserRepository.findByUsername(username);
+            SiteUserEntity commentByUser = siteUserService.getUserByUsername(username);
             Optional<RecipeEntity> recipe = recipeRepository.findById(id);
             if (recipe.isPresent()) {
                 List<RecipeComment> recipeComments = recipe.get().getRecipeComments();
