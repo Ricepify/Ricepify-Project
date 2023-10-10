@@ -12,5 +12,8 @@ import java.util.List;
 public interface RecipeRepository extends JpaRepository<RecipeEntity,Long> {
     List<RecipeEntity> findBySiteUserEntityOrderByCreatedAtDesc(SiteUserEntity user);
 
+
+    RecipeEntity getById(Long id);
+
     List<RecipeEntity> findBySiteUserEntity(SiteUserEntity siteUserEntity);
 }

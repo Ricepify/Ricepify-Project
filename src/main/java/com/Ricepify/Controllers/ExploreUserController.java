@@ -230,6 +230,8 @@ import com.Ricepify.Models.RecipeEntity;
 import com.Ricepify.Models.SiteUserEntity;
 import com.Ricepify.Repositories.RecipeRepository;
 import com.Ricepify.Repositories.SiteUserRepository;
+import com.Ricepify.Service.RecipeService;
+import com.Ricepify.Service.SiteUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -251,19 +253,26 @@ public class ExploreUserController {
     @Autowired
     RecipeRepository recipeRepository;
 
+    private final SiteUserService siteUserService;
+    private final RecipeService recipeService;
+
+    public ExploreUserController(SiteUserService siteUserService, RecipeService recipeService) {
+        this.siteUserService = siteUserService;
+        this.recipeService = recipeService;
+    }
+
     @GetMapping("/findUsers")
     public String getRandomUsers(Principal p, Model model) {
         if (p != null) {
             String username = p.getName();
-            SiteUserEntity loggedInUser = siteUserRepository.findByUsername(username);
-            List<SiteUserEntity> randomUsers = siteUserRepository.findRandomUsersExceptUser(loggedInUser.getId(), 7);
+            SiteUserEntity loggedInUser = siteUserService.getUserByUsername(username);
+            List<SiteUserEntity> randomUsers = siteUserService.getRandomUsers(loggedInUser.getId(), 7);
             model.addAttribute("users", randomUsers);
             Set<SiteUserEntity> followingSet = loggedInUser.getFollowing();
             List<RecipeEntity> feedPosts = new ArrayList<>();
             for (SiteUserEntity followingUser : followingSet) {
-                feedPosts.addAll(recipeRepository.findBySiteUserEntityOrderByCreatedAtDesc(followingUser));
+                feedPosts.addAll(recipeService.getSortedFeedPostsByTimeStampOrder(followingUser));
             }
-
             model.addAttribute("feedPosts", feedPosts);
             model.addAttribute("username", username);
         }
@@ -273,41 +282,42 @@ public class ExploreUserController {
 
     @GetMapping("/search")
     public String searchUsers(@RequestParam String query, Model model) {
-        List<SiteUserEntity> searchResults = siteUserRepository.findByFirstNameContainingIgnoreCase(query);
+        List<SiteUserEntity> searchResults = siteUserService.getUsersByFirstName(query);
         model.addAttribute("users", searchResults);
         return "findUser";
     }
+
     @GetMapping("/userinfo/{id}")
     public String getUserInfo(Principal p, @PathVariable Long id, Model model) {
-        SiteUserEntity user = siteUserRepository.findById(id).orElse(null);
-        SiteUserEntity currentUser = siteUserRepository.findByUsername(p.getName());
-        boolean isFollowed = currentUser.getFollowing().contains(user);
+        SiteUserEntity user = siteUserService.getUserById(id);
+        SiteUserEntity currentUser = siteUserService.getUserByUsername(p.getName());
+
 
         if (user != null) {
             model.addAttribute("user", user);
+
+            boolean isFollowed = siteUserService.isUserFollowedBy(currentUser , user);
             model.addAttribute("isFollowed", isFollowed);
-            Integer followersCount = user.getFollowers().size();
-            Integer followingCount = user.getFollowing().size();
+
+            Integer followersCount = siteUserService.getFollowersCount(user);
+            Integer followingCount = siteUserService.getFollowingUsers(user);
             user.setFollowersCount(followersCount);
             user.setFollowingCount(followingCount);
 
-            List<RecipeEntity> recipes = recipeRepository.findBySiteUserEntity(user);
+            List<RecipeEntity> recipes = recipeService.findRecipeBySiteUserEntity(user);
             model.addAttribute("recipes", recipes);
-
             return "otherProfileinfo";
         } else {
             return "redirect:/";
         }
     }
-
-
-
+    
 
     @GetMapping("/userinfo")
     public String getUserInfoPage(Principal p, Model model) {
         if (p != null) {
             String username = p.getName();
-            SiteUserEntity siteUserModel = siteUserRepository.findByUsername(username);
+            SiteUserEntity siteUserModel = siteUserService.getUserByUsername(username);
             model.addAttribute("user", siteUserModel);
         }
         return "findUser";
@@ -315,16 +325,7 @@ public class ExploreUserController {
 
     @PostMapping("/follow/{id}")
     public RedirectView followUser(Principal p, @PathVariable Long id) {
-        SiteUserEntity currentUser = siteUserRepository.findByUsername(p.getName());
-        SiteUserEntity userToFollow = siteUserRepository.findById(id).orElse(null);
-        if (userToFollow != null) {
-            if (currentUser.getFollowing().contains(userToFollow)) {
-                currentUser.getFollowing().remove(userToFollow);
-            } else {
-                currentUser.getFollowing().add(userToFollow);
-            }
-            siteUserRepository.save(currentUser);
-        }
+      siteUserService.followUser(p , id);
         return new RedirectView("/userinfo/" + id);
     }
 }

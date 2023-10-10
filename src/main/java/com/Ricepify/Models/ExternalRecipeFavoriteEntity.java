@@ -1,3 +1,4 @@
+
 package com.Ricepify.Models;
 
 import lombok.*;
