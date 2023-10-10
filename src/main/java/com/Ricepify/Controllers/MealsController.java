@@ -50,6 +50,10 @@ public class MealsController {
         model.addAttribute("meals", searchResults);
         return "search-results";
     }
+    @GetMapping("/searchForm")
+    public String showSearchForm() {
+        return "search-form"; // The name of the search form HTML file
+    }
 
     @GetMapping("/")
     public String getRandomMeals(Model model) {

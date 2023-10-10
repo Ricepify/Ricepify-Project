@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Search Results</title>
-    <script>
+  <title>Search Form</title>
+  <script>
         function updateQueryOptions() {
             var searchTypeSelect = document.getElementById("searchType");
             var querySelect = document.getElementById("querySelect");
@@ -27,7 +27,7 @@
             }
         }
     </script>
-    <style>
+  <style>
     nav {
       width: 100%;
       background-color: #f0eded;
@@ -96,38 +96,19 @@
 </head>
 <body>
 <div th:replace="fragment/nav-header :: nav-bar"></div>
-<h1>Search Form</h1>
-
+<h1 style="margin-top:70 px;">Search Form</h1>
 
 <form action="/searchByAreaOrCategory" method="get">
 
-    <select id="searchType" name="searchType" onchange="updateQueryOptions()">
-        <option value="category">--Choose how you want to search--</option>
-        <option value="category">Search by Category</option>
-        <option value="area">Search by Area</option>
-    </select>
-    <select id="querySelect" name="query">
-
-    </select>
-    <button type="submit">Search</button>
+  <select id="searchType" name="searchType" onchange="updateQueryOptions()">
+    <option value="category">--Choose how you want to search--</option>
+    <option value="category">Search by Category</option>
+    <option value="area">Search by Area</option>
+  </select>
+  <select id="querySelect" name="query">
+    <!-- Options will be dynamically populated based on the selected searchType -->
+  </select>
+  <button type="submit">Search</button>
 </form>
-</div>
-<div id="search-results">
-    <h2>Search Results</h2>
-    <table>
-        <thead>
-        <tr>
-            <th>Meal</th>
-            <th>Image</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- Use Thymeleaf to iterate and display search results here -->
-        <tr th:each="meal : ${meals}">
-            <td th:text="${meal.strMeal}"></td>
-            <td><img th:src="${meal.strMealThumb}" alt="Meal Thumbnail" width="100" height="100" /></td>
-        </tr>
-        </tbody>
-    </table>
-</div></body>
+</body>
 </html>
