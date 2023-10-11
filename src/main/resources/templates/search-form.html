@@ -92,23 +92,24 @@
 
     }
   </style>
-
+  <link rel="stylesheet" type="text/css" href="/css/search-cards-style.css">
 </head>
 <body>
 <div th:replace="fragment/nav-header :: nav-bar"></div>
-<h1 style="margin-top:70 px;">Search Form</h1>
 
-<form action="/searchByAreaOrCategory" method="get">
 
-  <select id="searchType" name="searchType" onchange="updateQueryOptions()">
-    <option value="category">--Choose how you want to search--</option>
-    <option value="category">Search by Category</option>
-    <option value="area">Search by Area</option>
-  </select>
-  <select id="querySelect" name="query">
-    <!-- Options will be dynamically populated based on the selected searchType -->
-  </select>
-  <button type="submit">Search</button>
-</form>
+<div class="center-search-form">
+  <div class="search-form">
+    <form action="/searchByAreaOrCategory" method="get">
+      <select id="searchType" name="searchType" onchange="updateQueryOptions()">
+        <option value="category">--Choose how you want to search--</option>
+        <option value="category">Search by Category</option>
+        <option value="area">Search by Area</option>
+      </select>
+      <select id="querySelect" name="query"></select>
+      <button type="submit">Search</button>
+    </form>
+  </div>
+</div>
 </body>
 </html>

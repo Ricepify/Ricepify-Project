@@ -28,106 +28,127 @@
         }
     </script>
     <style>
-    nav {
-      width: 100%;
-      background-color: #f0eded;
-      height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      position: fixed;
-      top: 0;
-      z-index: 1000;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    }
+        nav {
+            width: 100%;
+            background-color: #f0eded;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
-    nav .logo-container img {
-      max-height: 100%;
-    }
+        nav .logo-container img {
+            max-height: 100%;
+        }
 
-    nav ul {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-    }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
 
-    nav li {
-      float: right;
-    }
+        nav li {
+            float: right;
+        }
 
-    nav a {
-      display: inline;
-      color: #333;
-      padding: 10px 16px;
-      text-decoration: none;
-    }
+        nav a {
+            display: inline;
+            color: #333;
+            padding: 10px 16px;
+            text-decoration: none;
+        }
 
-    nav a:hover {
-      background-color: #ddd;
-      color: black;
-    }
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
 
-    .image-container {
-      width: 250px;
-      height: 50px;
-      overflow: visible;
-    }
+        .image-container {
+            width: 250px;
+            height: 50px;
+            overflow: visible;
+        }
 
-    .image-container img {
-      width: 300px;
-      height: 130px;
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
+        .image-container img {
+            width: 300px;
+            height: 130px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
 
-    body {
-      margin-top: 70px;
-      margin-bottom: 50px;
-    }
-    .image-container img:hover {
-      transform: scale(1.1);
-      transition: transform 0.1s ease;
-    }
+        body {
+            margin-top: 70px;
+            margin-bottom: 50px;
+        }
 
-    }
-  </style>
+        .image-container img:hover {
+            transform: scale(1.1);
+            transition: transform 0.1s ease;
+        }
 
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="/css/footer.css">
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/search-cards-style.css">
 </head>
 <body>
 <div th:replace="fragment/nav-header :: nav-bar"></div>
-<h1>Search Form</h1>
-
-
-<form action="/searchByAreaOrCategory" method="get">
-
-    <select id="searchType" name="searchType" onchange="updateQueryOptions()">
-        <option value="category">--Choose how you want to search--</option>
-        <option value="category">Search by Category</option>
-        <option value="area">Search by Area</option>
-    </select>
-    <select id="querySelect" name="query">
-
-    </select>
-    <button type="submit">Search</button>
-</form>
 </div>
-<div id="search-results">
-    <h2>Search Results</h2>
-    <table>
-        <thead>
-        <tr>
-            <th>Meal</th>
-            <th>Image</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- Use Thymeleaf to iterate and display search results here -->
-        <tr th:each="meal : ${meals}">
-            <td th:text="${meal.strMeal}"></td>
-            <td><img th:src="${meal.strMealThumb}" alt="Meal Thumbnail" width="100" height="100" /></td>
-        </tr>
-        </tbody>
-    </table>
-</div></body>
+<div class="center-search-form">
+    <div class="search-form">
+        <form action="/searchByAreaOrCategory" method="get">
+            <select id="searchType" name="searchType" onchange="updateQueryOptions()">
+                <option value="category">--Choose how you want to search--</option>
+                <option value="category">Search by Category</option>
+                <option value="area">Search by Area</option>
+            </select>
+            <select id="querySelect" name="query"></select>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+</div>
+<div class="container">
+
+    <!-- Remove the duplicated <hr> -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
+        <div th:each="meal : ${meals}" class="col mb-4">
+            <div class="card">
+                <img th:src="${meal.strMealThumb}" class="card-img-top" alt="Meal Image">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${meal.strMeal}"></h5>
+                </div>
+                <div class="card-footer">
+                    <a th:href="${'/favExMealDetail?id=' + meal.idMeal}" class="btn btn-primary btn-block mb-2" target="_blank">
+                        <i class="bi bi-three-dots-vertical"></i> Details
+                    </a>
+                    <form action="/addToFavoritesExternal" method="POST">
+                        <input type="hidden" name="id" th:value="${meal.idMeal}">
+                        <button type="submit" class="btn btn-success btn-block">
+                            <i class="bi bi-heart-fill"></i>Add to Favorites
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragment/footer :: footer"></div>
+
+<!-- Add Bootstrap JS link -->
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-o7HJ7FLU5Lh5n5Pc6u6uIwnzxFrjh4x4h"
+        crossorigin="anonymous"
+></script>
+</body>
 </html>
