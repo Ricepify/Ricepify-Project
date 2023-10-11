@@ -50,7 +50,7 @@ public class RecpieController {
                     .setRecipeDescription(recipeDescription)
                     .setRecipeCategory(recipeCategory)
                     .setRecipeArea(recipeArea)
-                    .setRecipeMode(recipeMode)
+                    .setRecipeMode("user")
                     .setRecipeVideo(recipeVideo)
                     .setSiteUserEntity(siteUserEntity)
                     .setCreatedAt(createdAt)
@@ -71,6 +71,7 @@ public class RecpieController {
                 List<RecipeComment> recipeComments = recipe.get().getRecipeComments();
                 recipe.ifPresent(recipeEntity -> model.addAttribute("recipeEntity", recipeEntity));
                 model.addAttribute("usersComments", recipeComments);
+                model.addAttribute("loggedInUserID", commentByUser.getId());
             }
         }
         return "recipe-details";
