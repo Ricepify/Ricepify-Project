@@ -1,9 +1,15 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-  <meta charset="UTF-8">
-  <title>User Profile</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <!DOCTYPE html>
+  <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/user-info.css">
+    <link rel="stylesheet" type="text/css" href="/css/footer.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
     <style>
 
     </style>
@@ -90,34 +96,121 @@
     </div>
 </div>
 
-<div class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
-  <div th:each="recipe, mealIndex : ${recipies}" class="col mb-4">
-    <div class="card">
-      <img th:src="${recipe.recipeImage}" class="card-img-top" alt="Meal Image">
-      <div class="card-body">
-        <h5 class="card-title" th:text="${recipe.recipeTitle}"></h5>
-        <p class="card-text">
-          <strong>Category:</strong> <span th:text="${recipe.recipeCategory}"></span><br>
-          <strong>Area:</strong> <span th:text="${recipe.recipeArea}"></span><br>
-        </p>
-      </div>
-      <div class="card-footer">
-        <a th:href="${recipe.recipeVideo}" class="btn btn-primary btn-block mb-2">Watch Video</a>
+  </head>
+  <body style="margin-top:90px;">
+  <nav>
+    <div th:replace="fragment/nav-header :: nav-bar"></div>
+  </nav>
+  <section class="user-info">
+    <div class="left-side">
+      <img th:src="${user.image}" alt="user Image" />
+    </div>
 
-        <a th:href="@{/recipeDetails/{userId}(userId=${recipe.recipeId})}" class="btn btn-primary btn-block mb-2">
-          Details
-        </a>
-        <form action="/addToFavoritesInternal" method="POST">
-          <input type="hidden" name="id" th:value="${recipe.recipeId}">
-          <button type="submit" class="btn btn-success btn-block">Add to Favorites</button>
-        </form>
-        </form>
+    <div class="right-side">
+      <div style="display: flex; align-items: center;">
+        <p class="name" th:text="${user.username}" style="margin-right: 20px;"></p>
+        <button id="editProfileBtn" class="btn btn-primary" style="vertical-align: middle; border: 1px solid #FF0000; color: #FF0000; background-color: white;">Edit Profile</button>
       </div>
     </div>
-  </div>
-</div>
-</div>
+        <span class="first-last" th:text="${user.firstName}"></span>
+        <span class="first-last" th:text="${user.lastName}"></span>
 
+          <div class="followers">
+            <div><span th:text="${user.followersCount}"></span>    <span th:text="${user.followingCount}"></span></div>
+            <div><strong>Followers</strong>   <strong>Following </strong></div>
+          </div>
+          <br>
+        <div>
+           <span th:text="${user.bio}" class="bio-text"></span>
+         </div>
+    <div>
+      <a th:href="@{/addNew_recipe}" class="btn btn-primary" style="vertical-align: middle; border: 1px solid #FF0000; color: #FF0000; background-color: white; width:250px; margin-left:395px; margin-top: 10px; margin-bottom:20px;">Add Recipe</a>
+
+    </div>
+          </div>
+        </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div th:each="recipe, mealIndex : ${recipies}" class="col mb-4">
+        <div class="card" style="width: 300px;">
+          <a th:href="@{/recipeDetails/{userId}(userId=${recipe.recipeId})}" style="color: #400000;font-style: italic; text-decoration: none;   text-align: center;">
+            <img th:src="${recipe.recipeImage}" class="card-img-top" alt="Recipe Image">
+            <div class="card-body">
+              <h5 class="card-title" th:text="${recipe.recipeTitle}"></h5>
+            </div>
+            <div class="card-footer" style="height:90px;">
+              <div class="row">
+                <div>
+                  <form action="/addToFavoritesInternal" method="POST" style="margin-top:-10px;">
+                    <a th:href="${recipe.recipeVideo}">
+                      <img src="/images/play.png" alt="Video Thumbnail" style="width:50px; margin-right:40px; margin-left:20px;">
+                    </a>
+                    <input type="hidden" name="id" th:value="${recipe.recipeId}">
+                    <button type="submit" style="border: none; border-radius: 5px;">
+                      <img src="/images/bookmark.png" alt="Recipe ID" style="width:50px; border:none;"/>
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+
+  </section>
+
+  <div id="editProfileModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Edit User Information</h2>
+      <form th:action="@{'/myProfile'}" method="post" id="editProfileForm">
+        <input type="hidden" name="_method" value="put">
+        <input id="username" type="hidden" name="username" th:value="${user.username}">
+        <label for="firstName">First Name:</label>
+        <input id="firstName" type="text" name="firstName" th:value="${user.firstName}">
+        <label for="lastName">Last Name:</label>
+        <input id="lastName" type="text" name="lastName" th:value="${user.lastName}">
+        <label for="email">E-mail:</label>
+        <input id="email" type="text" name="email" th:value="${user.email}">
+        <label for="image">image:</label>
+        <input id="image" type="text" name="image" th:value="${user.image}">
+        <label for="bio">Bio :</label>
+        <input id="bio" type="text" name="bio" th:value="${user.bio}">
+        <input type="submit" value="Save Changes" style="vertical-align: middle; border: 1px solid #FF0000; color: #FF0000; background-color: white; width:250px; margin-left:150px;">
+      </form>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-o7HJ7FLU5Lh5n5Pc6u6uIwnzxFrjh4x4h" crossorigin="anonymous"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var modal = document.getElementById('editProfileModal');
+      var btn = document.getElementById('editProfileBtn');
+      var span = document.getElementsByClassName('close')[0];
+
+      btn.onclick = function() {
+        modal.style.display = 'block';
+      }
+
+      span.onclick = function() {
+        modal.style.display = 'none';
+      }
+
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = 'none';
+        }
+      }
+    });
+  </script>
+  </div>
+  <div th:replace="fragment/footer :: footer" style="margin-top:30px;"></div>
+  </body>
+  </html>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-o7HJ7FLU5Lh5n5Pc6u6uIwnzxFrjh4x4h" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>

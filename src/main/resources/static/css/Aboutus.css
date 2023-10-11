@@ -17,8 +17,9 @@
       width: 100%;
   }
 }
+
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Fugaz One', cursive;
     margin: 0;
     background-color: #f5f5f5;
 
@@ -165,6 +166,7 @@ nav {
       list-style-type: none;
       margin: 0;
       padding: 0;
+          font-family: 'Fugaz One', cursive;
     }
 
     nav li {

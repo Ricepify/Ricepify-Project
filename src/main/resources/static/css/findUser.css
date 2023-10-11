@@ -185,7 +185,7 @@ nav {
     }
 
     .details-btn {
-        margin-left:700px;
+        margin-left:600px;
         border-radius: 8px;
             background-color: #FF0000;
             color: #FFFFFF;
@@ -193,3 +193,18 @@ nav {
             padding: 10px 20px;
             cursor: pointer;
     }
+    footer {
+        border-radius: 10px;
+        background-color: #333;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+        align-items: center;
+        position: static;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 97%;
+    }
+
