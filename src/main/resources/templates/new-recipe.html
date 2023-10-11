@@ -4,10 +4,17 @@
 <head>
   <meta charset="utf-8">
   <title>Login and Registration Form in HTML | CodingNepal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap" rel="stylesheet">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="/css/new-recipe.css">
+  <link rel="stylesheet" type="text/css" href="/css/footer.css">
+
 </head>
 <body>
+<nav>
+  <div th:replace="fragment/nav-header :: nav-bar"></div>
+</nav>
 <div class="wrapper">
   <div class="title-text">
     <div class="title signup">
@@ -47,5 +54,7 @@
     </div>
   </div>
 </div>
+<div th:replace="fragment/footer :: footer"></div>
+
 </body>
 </html>

@@ -1,0 +1,191 @@
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    .main {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .cards_item {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        height: 100%; /* Set a taller height for all cards */
+    }
+
+    .card_image {
+        height: calc(20 * 1.2rem); /* Increase the height */
+        padding: 1.2rem 1.2rem 0;
+        position: relative;
+    }
+
+    .card_image:before,
+    .card_image:after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        left: 60%;
+        top: 0;
+        height: 45px;
+        background: #e6e6e6b8;
+        transform: rotate(45deg);
+    }
+
+    .card_image:after {
+        transform: rotate(-45deg);
+        top: auto;
+        bottom: -22px;
+        left: 40%;
+    }
+
+    .card_image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .cards_item {
+        filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.25));
+    }
+
+    .card {
+        background-color: white;
+        border-radius: 0.25rem;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        padding-left: 30px;
+        background: repeating-linear-gradient(#0000 0 calc(1.2rem - 1px), #66afe1 0 1.2rem) right bottom / 100% 100%, linear-gradient(red 0 0) 30px 0/2px 100% #fff;
+        background-repeat: no-repeat;
+        line-height: 1.2rem;
+        -webkit-mask: radial-gradient(circle .8rem at 2px 50%, #0000 98%, #000) 0 0/100% 2.4rem;
+        height: 100%;
+    }
+
+    .card_content {
+        padding: 1.2rem;
+        flex-grow: 1; /* Allow content to grow and push buttons to the bottom */
+    }
+
+    h2.card_title,
+    p {
+        margin: 1.2rem 0;
+    }
+
+    h2.card_title {
+        font-size: 1.3em;
+    }
+
+    body {
+        font-family: 'Fugaz One', cursive;
+            font-weight: bold;
+        background: #eee;
+    }
+
+    html {
+        font-size: 15px;
+    }
+
+    .card_footer {
+        display: flex;
+        flex-direction: column; /* Stack buttons on top of each other */
+        align-items: center;
+    }
+
+    .btn-container {
+        display: flex;
+        flex-direction: column; /* Stack buttons on top of each other */
+        gap: 10px; /* Add padding between buttons */
+        margin-top: auto; /* Push buttons to the bottom */
+    }
+
+    .btn {
+        background-color: #e74c3c;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.3s;
+        width: 100%; /* Make buttons full width within the container */
+    }
+
+    .btn i {
+        font-size: 24px;
+        margin-right: 8px;
+    }
+
+  .btn:hover {
+  background-color: #c0392b;
+}
+
+
+nav {
+      width: 100%;
+      background-color: #faf7f7;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      position: fixed;
+      top: 0;
+      z-index: 1000;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Added box-shadow */
+    }
+
+    nav .logo-container img {
+      max-height: 100%;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      font-family: 'Fugaz One', cursive;
+
+    }
+
+    nav li {
+      float: right;
+    }
+
+    nav a {
+      display: inline;
+      color: #333;
+      padding: 10px 16px;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+
+    .image-container {
+      width: 250px;
+      height: 50px;
+      overflow: visible;
+    }
+
+    .image-container img {
+      width: 300px;
+      height: 130px;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+

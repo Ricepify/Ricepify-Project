@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subscribtion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/nav-header.css">
+    <link rel="stylesheet" type="text/css" href="/css/footer.css">
+
+
     <style>
         body {
     margin: 0;
@@ -81,7 +86,10 @@ input[type="submit"]:hover {
     </style>
 </head>
 <body>
-    <div class="Subscribtion-card">
+<nav>
+    <div th:replace="fragment/nav-header :: nav-bar"></div>
+</nav>
+    <div class="Subscribtion-card" style="margin-top:70px;">
     <form action="/subscription" method="POST">
     <h1>Subscribe To Our Recipes Feed</h1>
     <h2 id="text">Get The Latest Recipes At 12pm</h2>
@@ -103,6 +111,9 @@ function writeText() {
 }
 
 writeText();
-    </script> 
+    </script>
+
+<!--<div th:replace="fragment/footer :: footer"></div>-->
+
 </body>
 </html>

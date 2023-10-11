@@ -57,7 +57,7 @@ public class MealsController {
     }
     @GetMapping("/searchForm")
     public String showSearchForm() {
-        return "search-form"; // The name of the search form HTML file
+        return "search-form";
     }
 
 

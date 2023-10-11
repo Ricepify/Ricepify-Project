@@ -14,15 +14,15 @@
   </div>
   <ul>
       <li><a th:href="@{/perform_logout}">Log Out</a></li>
+<!--      <li><a th:if="${username == null}" th:href="@{/login}"> Login</a></li>-->
+<!--      <li><a th:if="${username == null}" th:href="@{/signup}"></a>signup</li>-->
       <li><a th:href="@{/myProfile}">Profile</a></li>
       <li><a th:href="@{/findUsers}">Explore Users</a></li>
       <li><a th:href="@{/subscription}">Subscribe</a></li>
-      <li><a th:href="@{/aboutus}">AboutUs</a></li>
       <li><a th:href="@{/favorite}">Favorite</a></li>
+      <li><a th:href="@{/searchForm}">Search</a></li>
+      <li><a th:href="@{/aboutus}">AboutUs</a></li>
       <li><a th:href="@{/}">Home</a></li>
-
-
-
   </ul>
 </nav>
 </body>

@@ -19,6 +19,8 @@ nav {
       list-style-type: none;
       margin: 0;
       padding: 0;
+      font-family: 'Fugaz One', cursive;
+
     }
 
     nav li {
@@ -54,4 +56,6 @@ nav {
     body {
       margin-top: 70px;
       margin-bottom: 50px;
+      font-family: 'Fugaz One', cursive;
+
     }

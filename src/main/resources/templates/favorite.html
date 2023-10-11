@@ -5,23 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type="text/css" href="/css/home.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/footer.css">
 
-    <style>
-        .card {
-            height: 100%; /* Set a fixed height for all cards */
-        }
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/cards-style.css">
 
-        .card-img-top {
-            height: 200px; /* Adjust the image height as needed */
-            object-fit: cover; /* Ensure the image covers the entire space */
-        }
-
-        /* Smaller card footer */
-        .card-footer {
-            padding: 5px; /* Adjust the padding as needed */
-        }
-    </style>
 
     <title>Meal Directory</title>
 </head>
@@ -33,7 +23,7 @@
 <br>
 <br>
 
-<div class="container">
+<div class="container" style="margin-top:50px;">
     <hr>
 
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
@@ -50,12 +40,12 @@
                     </p>
                 </div>
                 <div class="card-footer">
-                    <a th:href="${tempMeal.video}" class="btn btn-primary btn-block mb-2" target="_blank">Watch Video</a>
-                    <a th:href="${'/favIntMealDetail?id=' + tempMeal.id}" class="btn btn-primary btn-block mb-2" target="_blank">Details</a>
+                    <a th:href="${tempMeal.video}" class="btn btn-primary btn-block mb-2" target="_blank"><i class="bi bi-play-circle-fill"></i>Watch Video</a>
+                    <a th:href="${'/favIntMealDetail?id=' + tempMeal.id}" class="btn btn-primary btn-block mb-2" target="_blank"><i class="bi bi-three-dots-vertical"></i>Details</a>
                     <!-- Delete button for removing from favorites -->
                     <form th:action="@{/removeIntFavorite}" method="post">
                         <input type="hidden" name="mealId" th:value="${tempMeal.id}" />
-                        <button type="submit" class="btn btn-danger btn-block">Remove from Favorites</button>
+                        <button type="submit" class="btn btn-danger btn-block"><i class="bi bi-trash3-fill"></i>Remove from Favorites</button>
                     </form>
                 </div>
             </div>
@@ -74,23 +64,21 @@
                     </p>
                 </div>
                 <div class="card-footer">
-                    <a th:href="${tempMeal.video}" class="btn btn-primary btn-block mb-2" target="_blank">Watch Video</a>
-                    <a th:href="${'/favExMealDetail?id=' + tempMeal.id}" class="btn btn-primary btn-block mb-2" target="_blank">Details</a>
+                    <a th:href="${tempMeal.video}" class="btn btn-primary btn-block mb-2" target="_blank"><i class="bi bi-play-circle-fill"></i>Watch Video</a>
+                    <a th:href="${'/favExMealDetail?id=' + tempMeal.id}" class="btn btn-primary btn-block mb-2" target="_blank"><i class="bi bi-three-dots-vertical"></i>Details</a>
                     <!-- Delete button for removing from favorites -->
                     <form th:action="@{/removeExFavorite}" method="post">
                         <input type="hidden" name="mealId" th:value="${tempMeal.id}" />
-                        <button type="submit" class="btn btn-danger btn-block">Remove from Favorites</button>
+                        <button type="submit" class="btn btn-danger btn-block"><i class="bi bi-trash3-fill"></i>Remove from Favorites</button>
                     </form>
                 </div>
             </div>
         </div>
-        <!-- End of loops -->
 
     </div>
 </div>
-
-<!-- Bootstrap JS  -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-o7HJ7FLU5Lh5n5Pc6u6uIwnzxFrjh4x4h" crossorigin="anonymous"></script>
+<div th:replace="fragment/footer :: footer"></div>
 
 </body>
 </html>
