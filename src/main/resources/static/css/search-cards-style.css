@@ -1,10 +1,13 @@
-  /* Your new card styles */
     *,
     *::before,
     *::after {
         box-sizing: border-box;
     }
 
+body{
+    font-family: 'Fugaz One', cursive;
+    font-weight: bold;
+}
     .main {
         max-width: 1200px;
         margin: 0 auto;
@@ -88,11 +91,6 @@
         font-size: 1.3em;
     }
 
-    body {
-        font-family: monospace;
-        background: #eee;
-    }
-
     html {
         font-size: 15px;
     }
@@ -149,3 +147,64 @@
             background: #eee;
 
         }
+
+nav {
+      width: 100%;
+      background-color: #f0eded;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      position: fixed;
+      top: 0;
+      z-index: 1000;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    nav .logo-container img {
+      max-height: 100%;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav li {
+      float: right;
+    }
+
+    nav a {
+      display: inline;
+      color: #333;
+      padding: 10px 16px;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+
+    .image-container {
+      width: 250px;
+      height: 50px;
+      overflow: visible;
+    }
+
+    .image-container img {
+      width: 300px;
+      height: 130px;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    body {
+      margin-top: 70px;
+      margin-bottom: 50px;
+    }
+    .image-container img:hover {
+      transform: scale(1.1);
+      transition: transform 0.1s ease;
+    }
