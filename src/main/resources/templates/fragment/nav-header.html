@@ -1,29 +1,115 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-<body>
-<nav th:fragment="nav-bar">
-  <div class="image-container">
-    <img src="/images/resyLogo.png" alt="Your Image Description">
-  </div>
-  <ul>
-      <li><a th:href="@{/perform_logout}">Log Out</a></li>
-<!--      <li><a th:if="${username == null}" th:href="@{/login}"> Login</a></li>-->
-<!--      <li><a th:if="${username == null}" th:href="@{/signup}"></a>signup</li>-->
-      <li><a th:href="@{/myProfile}">Profile</a></li>
-      <li><a th:href="@{/findUsers}">Explore Users</a></li>
-      <li><a th:href="@{/subscription}">Subscribe</a></li>
-      <li><a th:href="@{/favorite}">Favorite</a></li>
-      <li><a th:href="@{/searchForm}">Search</a></li>
-      <li><a th:href="@{/aboutus}">AboutUs</a></li>
-      <li><a th:href="@{/}">Home</a></li>
-  </ul>
-</nav>
-</body>
-</html>
+    <!DOCTYPE html>
+    <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Document</title>
+        <link rel="stylesheet" href="/css/nav-header.css">
+        <style>
+            .nav-container {
+  width: 100%;
+  background-color: #f0eded;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container .logo-container img {
+  max-height: 100%;
+}
+
+.nav-container ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-container li {
+  float: right;
+  font-family: 'Fugaz One', cursive;
+}
+
+.nav-container a {
+  display: inline-block;
+  color: #333;
+  text-decoration: none;
+  padding: 10px 16px;
+}
+
+.nav-container a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.nav-container .image-container {
+  width: 250px;
+  height: 50px;
+  overflow: visible;
+}
+
+.nav-container .image-container img {
+  width: 300px;
+  height: 130px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.nav-container img:hover {
+  transform: scale(1.1);
+  transition: transform 0.1s ease;
+}
+
+@media (max-width: 768px) {
+  .nav-container {
+    justify-content: center;
+  }
+
+  .nav-container ul {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .nav-container li {
+    float: none;
+    display: inline-block;
+    margin: 0 10px;
+  }
+
+  .nav-container a {
+    padding: 8px 12px;
+    background-color: #f0eded;
+    border-radius: 4px;
+    margin: 0 10px;
+  }
+}
+
+        </style>
+    </head>
+    <body>
+    <nav th:fragment="nav-bar">
+      <div class="image-container">
+        <img src="/images/resyLogo.png" alt="Your Image Description">
+      </div>
+      <ul>
+          <li><a th:href="@{/perform_logout}">Log Out</a></li>
+    <!--      <li><a th:if="${username == null}" th:href="@{/login}"> Login</a></li>-->
+    <!--      <li><a th:if="${username == null}" th:href="@{/signup}"></a>signup</li>-->
+          <li><a th:href="@{/myProfile}">Profile</a></li>
+          <li><a th:href="@{/findUsers}">Explore Users</a></li>
+          <li><a th:href="@{/subscription}">Subscribe</a></li>
+          <li><a th:href="@{/favorite}">Favorite</a></li>
+          <li><a th:href="@{/searchForm}">Search</a></li>
+          <li><a th:href="@{/aboutus}">AboutUs</a></li>
+          <li><a th:href="@{/}">Home</a></li>
+      </ul>
+    </nav>
+    </body>
+    </html>
